@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "JqueryBugs";
+}
+@*checking condition*@
+@*<div class="row">
+        <div class="col-md-3">
+            <div id="toggleInput"><input type="checkbox" class="form-group" /> Toggle All</div>
+        </div>
+    </div>*@
+@*<div class="row">
+        <div class="col-md-3">
+            <ul id="items">
+                <li><input type="checkbox" class="form-group" /> <div class="content">Testing 1</div></li>
+                <li><input type="checkbox" class="form-group" /> <div class="content">Testing 2</div></li>
+                <li><input type="checkbox" class="form-group" /> <div class="content">Testing 3</div></li>
+                <li><input type="checkbox" class="form-group" /> <div class="content">Testing 4</div></li>
+                <li><input type="checkbox" class="form-group" /> <div class="content">Testing 5</div></li>
+            </ul>
+        </div>
+    </div>*@
+@*Barbaric behaviour*@
+@*<div class="row">
+        <div class="col-md-6">
+            <div id="container">
+                <ul id="contacts"></ul>
+            </div>
+            <button id="btnRefresh" class="btn btn-info">Refresh</button>
+        </div>
+    </div>*@
+@*false start*@
+@*Crazy-Context*@
+@*<div class="row">
+        <div class="col-md-6">
+            <div id="Output">
+            </div>
+            <button id="btnClick" class=" col-md-4 btn btn-success">ProxyClick</button>
+        </div>
+    </div>*@
+@*Never-Ending-Story*@
+@*<div class="row">
+    <div class="col-md-10">
+        <ul id="menu">
+            <li>
+                <a href="#">Browsers</a>
+                <ul>
+                    <li><a href="#">Firefox</a></li>
+                    <li><a href="#">Google Chrome</a></li>
+                    <li><a href="#">Internet Explorer</a></li>
+                    <li><a href="#">Opera</a></li>
+                    <li><a href="#">Safari</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>*@
+@*ResolvePromises*@
+<div class="row" style="padding-top:10px">
+    <div class="col-md-3">
+        <button id="btnPromise" class="btn btn-success">CallPromise</button>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).on("click", "#toggleInput input", function (e) {
+            $("#items").find("input").attr("checked", $(this).prop("checked"));
+        });
+
+        var contacts = [
+            { name: "John Doe", birthday: "1/1/1970" },
+            { name: "Jane Doe", birthday: "2/2/1975" },
+            { name: "Baby Doe", birthday: "3/3/2010" }
+        ];
+
+        var resolvePromises = {
+            callPromise: function () {
+                var promise = $.Deferred();
+                $.ajax({
+                    url: '/Home/ResolvePromises',
+                    type: 'GET',
+                    success: function (result) {
+                        promise.resolve(result.age);
+
+                    }
+                });
+
+                return promise;
+            }
+        }
+        $(document).ready(function () {
+            var $container = $("#container"),
+                $contacts = $("#contacts");
+
+            var addContacts = function (contacts) {
+                var list = $contacts.remove();
+                $.each(contacts, function (index, contact) {
+                    $("<li />", { html: contact.name }).data("birthday", contact.birthday).appendTo($contacts);
+                });
+                $container.append(list);
+            }
+
+            var initialize = function () {
+                $("#container").on("click", "#contacts li", function () {
+                    alert("Birthday: " + $(this).data("birthday"));
+                });
+
+                $("#btnRefresh").on("click", function () {
+                    addContacts([{ name: "Yoda Doe", birthday: "4/4/2013" }]);
+                });
+            };
+
+            //initialize();
+            //addContacts(contacts);
+
+            var you = {
+                obj: { name: "aditya", surname: "singh" },
+                executeFunction: function () {
+                    $('#Output').html('HELLO');
+                    toastr.success(this.obj.name);
+                }
+            }
+
+            $('#btnClick').click($.proxy(you.executeFunction, you));
+            $("#menu li").hover(function (e) {
+                $(this).find("ul")
+                    .stop(true, true)
+                    .slideToggle(400, "easeOutBounce");
+            });
+
+            $('#btnPromise').click(function () {
+                resolvePromises.callPromise().done(function (result) {
+                    toastr.success("The age of Employee Aditya Singh is :" + result);
+                }).fail(function () {
+                    toastr.error("Promises resolution failed");
+                })
+            })
+        });
+    </script>
+}

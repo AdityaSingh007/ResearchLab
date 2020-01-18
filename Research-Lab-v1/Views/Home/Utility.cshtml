@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Utility";
+}
+
+<input id="name" value="Pluralsight" />
+<input id="url" value="http://pluralsight.com/" />
+<div id="out">
+
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        var people = [
+            { fn: "John", ln: "Doe", bday: "11/19/1977" },
+            { fn: "Jane", ln: "Doe", bday: "10/12/1979" },
+            { fn: "Joe", ln: "Doe", bday: "07/05/2009" }
+        ];
+
+        people = $.map(people, function (person) {
+            return {
+                firstName: person.fn,
+                lastName: person.ln,
+                age: moment().diff(moment(person.bday), "years")
+            };
+        });
+
+        toastr.success("<pre>" + JSON.stringify(people, null, 4) + "</pre>", "$.map()");
+
+        // ..........
+
+        var output = $("input").map(function () {
+            return $(this).val();
+        }).get().join(" ");
+
+        //toastr.success(output, "$().map()");
+
+        var peopleGrep = [
+            { "firstName": "John", "lastName": "Doe", "age": 35 },
+            { "firstName": "Jane", "lastName": "Doe", "age": 33 },
+            { "firstName": "Joe", "lastName": "Doe", "age": 3 }
+        ];
+
+        peopleGrep = $.grep(peopleGrep, function (person) {
+            return person.age > 18;
+        });
+
+        toastr.success("<pre>" + JSON.stringify(peopleGrep, null, 4) + "</pre>");
+        var jayQuery = {
+            element: { html: null },
+            html: function (value) {
+                if (value === undefined) {
+                    return this.element.html;
+                } else if (typeof value === "string") {
+                    this.element.html = value;
+                } else if (typeof value === "function") {
+                    this.element.html = value(this.element.html);
+                }
+            },
+            map: function (items, callback) {
+                var result = [];
+
+                if ($.type(items) === "array") {
+                    for (i = 0; i < items.length; i++) {
+                        result.push(callback(items[i], i));
+                    }
+                } else if (typeof items === "object") {
+                    for (i in items) {
+                        result.push(callback(items[i], i));
+                    }
+                }
+
+                return result;
+            }
+        };
+
+        console.log("html: " + jayQuery.html());
+        jayQuery.html("Hello");
+        console.log("html: " + jayQuery.html());
+        jayQuery.html(function (item) { return item + " World"; });
+        console.log("html: " + jayQuery.html());
+
+        // ..........
+
+        var person = { firstName: "Elijah", middleName: "Troy", lastName: "Manor" };
+        console.log(jayQuery.map(person, function (value, key) {
+            return value.charAt(0);
+        }));
+
+        var names = ["John", "Susan"];
+        names[5] = "Joe";
+        console.log(names);
+        console.log(jayQuery.map(names, function (item, index) {
+            return item ? item.charAt(0) : undefined;
+        }));
+
+        var executeFunction = {
+            passFunction: function (value) {
+                if ($.type(value) === "function")
+                    value('#out')
+            }
+        }
+
+        executeFunction.passFunction(function (divelement) {
+            $(divelement).html('function executed Successfully!!!');
+        });
+    </script>
+
+}
+
+

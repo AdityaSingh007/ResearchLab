@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "DynamicallyAssignedTemplates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/MyStyles/fonts.css" rel="stylesheet" />
+<link href="~/Content/MyStyles/styles.css" rel="stylesheet" />
+<div class="page" style="padding-top:50px">
+    @*<div class="header" data-bind="with: metadata">
+            <h1 data-bind="text: pageTitle"></h1>
+            <div data-bind="with:personal">
+                <a href="00-index.html">Index</a> <a data-bind="attr: {href: link, title: text}, text: text"
+                                                     class="personalCss"></a>
+            </div>
+        </div>*@
+    <div id="main">
+        <div class="leftFloat">
+            <div>
+                <span class="caption">Select a Product</span>
+            </div>
+            <div>
+                <input type="checkbox" data-bind="checked:showAll" /><span>All Products</span>
+            </div>
+            <ul data-bind=" template:{
+                foreach:productsToShow,
+                afterAdd:showProducts,
+                beforeRemove:hideProducts}"
+                class="smallList">
+                <li data-bind="css: { selected: isSelected}" class="selectable">
+                    <div data-bind="text: shortDesc, click:$root.selectProduct">
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div data-bind="if: selectedProduct()" class="leftFloat">
+            <div class="productDetailsArea">
+                <div>
+                    <input type="checkbox" data-bind="checked: showDetails" /><span>Expand Details</span>
+                </div>
+                @*<div data-bind="template: {name: productView}">
+                    </div>*@
+                @*<script id="productSummary" type="text/html">*@
+                <div data-bind="if:!showDetails()">
+                    <div data-bind="with: selectedProduct().model">
+                        <div class="photoContainer photoThumbnail">
+                        </div>
+                        <div>
+                            <span>Brand: </span><span data-bind="text: brand" class="textValues"></span>
+                        </div>
+                        <div>
+                            <span>Model: </span><span data-bind="text: name" class="textValues"></span>
+                        </div>
+                    </div>
+                </div>
+
+                @*</script>*@
+                @*<script id="productDetails" type="text/html">*@
+                <div data-bind="if:showDetails()">
+                    <div data-bind="with: selectedProduct">
+                        <div class="photoContainer leftFloat">
+                            <img data-bind="visible: photoUrl, attr: { src: photoUrl, alt: shortDesc}" class="photoThumbnail"></img>
+                        </div>
+                        <div>
+                            <span>Brand: </span><span data-bind="text: model().brand" class="textValues"></span>
+                        </div>
+                        <div>
+                            <span>Model: </span><span data-bind="text: model().name" class="textValues"></span>
+                        </div>
+                        <div>
+                            <span>Price: </span><span data-bind="text: my.formatCurrency(salePrice())" class="textValues">
+                            </span>
+                        </div>
+                        <div>
+                            <span>Description:</span>
+                        </div>
+                        <div>
+                            <span data-bind="text: description" class="textValues"></span>
+                        </div>
+                    </div>
+                </div>
+
+                @*</script>*@
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/ko-protected-observable.js"></script>
+    <script src="~/Scripts/MyScripts/data.js"></script>
+    <script src="~/Scripts/MyScripts/utils.js"></script>
+    <script src="~/Scripts/MyScripts/5-05-dynamic-templates-and-item-selection.js"></script>
+}

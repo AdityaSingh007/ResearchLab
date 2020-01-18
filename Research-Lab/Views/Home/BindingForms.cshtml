@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "BindingForms";
+}
+@*<link href="~/Content/typeahead.css" rel="stylesheet" />*@
+<link href="~/Content/typeahead.js-bootstrap.css" rel="stylesheet" />
+<form id="person-form" class="form-horizontal">
+
+    <div class="form-group">
+        <label for="fullname" class="col-sm-3 control-label">Name</label>
+        <div class="col-sm-9">
+            <input type="text" id="fullname" name="fullname" class="form-control" data-bind="value:fullname" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="age" class="col-sm-3 control-label">Age</label>
+        <div class="col-sm-9">
+            <input type="text" id="age" name="age" class="form-control" data-bind="value:age" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="type-ahead" class="col-sm-3 control-label">Search</label>
+        <div class="col-sm-9">
+            <input id="type-ahead" type="text" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+    </div>
+</form>
+@section scripts
+{
+    @*<script src="~/Scripts/typeahead.jquery.js"></script>*@
+    @*<script src="~/Scripts/typeahead.jquery.min.js"></script>*@
+    @*<script src="~/Scripts/typeahead.bundle.min.js"></script>*@
+    @*<script src="~/Scripts/typeahead.bundle.js"></script>*@
+    <script src="~/Scripts/typeahead.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var person = {
+                fullname: ko.observable("Arcadius"),
+                age: ko.observable(26)
+            }
+
+            // populate the form
+            //$('#fullname').val(person.fullname);
+            //$('#age').val(person.age);
+            ko.applyBindings(person);
+
+            // populate object on submit
+            $('#person-form').submit(function (event) {
+
+                //$('form').serializeArray();
+
+                //person.fullname = $('#fullname').val();
+                //person.age = $('#age').val();
+
+                event.preventDefault();
+            });
+
+            //Autocomplete set-up
+            $('#type-ahead').typeahead(
+                {
+                    name: 'football-teams',
+                    remote: {
+                        url: '/Home/Search?prefix=%QUERY'
+                    }
+                }
+            );
+
+        });
+    </script>
+}
+

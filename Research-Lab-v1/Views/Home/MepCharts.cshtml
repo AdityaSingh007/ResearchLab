@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "MepCharts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/mep.css" rel="stylesheet" />
+<link href="~/Content/MepSite.css" rel="stylesheet" />
+<div data-bind="template:{name: 'KGSCharts'}">
+</div>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/ko-protected-observable.js"></script>
+    <script type="text/html" id="KGSCharts">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="margin: 20px 0 10px 0;padding-top:30px">
+                <div class="navContainer">
+                    <div class="col-sm-offset-11">
+                        <input type="checkbox" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript">
+        ko.applyBindings();
+    </script>
+}
+
+

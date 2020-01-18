@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "BasketballPlaybook";
+    Layout = "~/Views/Shared/_basketBall.cshtml";
+}
+<div id="tagsList" class="box">
+    <div class="box-head">
+        <h2 class="left">Tags</h2>
+    </div>
+    <div class="box-content">
+        <input type="text" placeholder="Add New Tag" data-bind="value: tagToAdd, valueUpdate: 'afterkeydown', executeOnEnter: addTag" />
+        <button data-bind="click: addTag, enable: tagToAdd().length > 0">+ Add</button>
+        <div class="row">
+            <div class="col-md-6">
+                <ul data-bind="foreach: tags">
+                    <li class="tagItem" data-bind="click: $root.selectTag">
+                        <span data-bind="text: Name"></span>
+                        <div>
+                            <a href="#" class="tag-edit" data-toggle="modal" data-target="#tagDialog">Edit</a>
+                            <a href="#" class="tag-delete">Delete</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="tagDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bind="with: selectedTag">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Tags</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tag Name:
+                <input type="text" data-bind="value: Name" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click:$root.saveChanges">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+
+    <script src="~/Scripts/ko-protected-observable.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var data = [
+                { Id: 1, Name: "Ball Handling" },
+                { Id: 2, Name: "Passing" },
+                { Id: 3, Name: "Shooting" },
+                { Id: 4, Name: "Rebounding" },
+                { Id: 5, Name: "Transition" },
+                { Id: 6, Name: "Defense" },
+                { Id: 7, Name: "Team Offense" },
+                { Id: 8, Name: "Team Defense" }
+            ];
+
+            //var data = [
+            //    new tagItem(1, "Ball Handling"),
+            //    new tagItem(2, "Passing"),
+            //    new tagItem(3, "Shooting"),
+            //    new tagItem(4, "Rebounding"),
+            //    new tagItem(5, "Transition"),
+            //    new tagItem(6, "Defense"),
+            //    new tagItem(7, "Team Offense"),
+            //    new tagItem(8, "Team Defense"),
+            //];
+
+            var viewModel = {
+                // data
+                tags: ko.observableArray(ko.toProtectedObservableItemArray(data)),
+                tagToAdd: ko.observable(""),
+                selectedTag: ko.observable(null),
+
+                // behaviors
+                addTag: function () {
+                    var newTag = { Name: this.tagToAdd() };
+                    this.tags.push(newTag);
+                    this.tagToAdd("");
+
+                    //ajaxAdd("/tags", ko.toJSON(newTag), function (data) {
+                    //    viewModel.tags.push(new ko.protectedObservableItem(data));
+                    //});
+                },
+
+                selectTag: function () {
+                    viewModel.selectedTag(this);
+                    console.log(viewModel.selectedTag());
+                },
+
+                saveChanges: function () {
+                    viewModel.selectedTag().commit();
+                }
+
+
+            };
+            ko.applyBindings(viewModel);
+
+            $(document).on("click", ".tag-delete", function () {
+                var itemsToRemove = ko.dataFor(this);
+                viewModel.tags.remove(itemsToRemove);
+            })
+
+            function toTagItemArray(data) {
+                var tagItems = ko.utils.arrayMap(data, function (item) {
+                    return new tagItem(item.Id, item.Name);
+                });
+
+                return tagItems;
+            }
+
+            function tagItem(id, name) {
+                return {
+                    Name: ko.protectedObservable(name),
+                    Id: ko.protectedObservable(id)
+                }
+            }
+        });
+
+    </script>
+
+}

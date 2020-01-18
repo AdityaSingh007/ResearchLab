@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "KoComputed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="main">
+    <div class="showroom">
+        <div>
+            @*<div>
+                    <img data-bind="attr: {src:product().photoUrl, title:product().shortDescription}" class="photoThumbnail" />
+                </div>*@
+            <div>
+                <span class="caption">Product:</span><span data-bind="text:product().shortDescription"></span>
+            </div>
+            <div>
+                <span class="caption">Unit Price:</span>
+                <input data-bind="value: product().salePrice, valueUpdate:'afterkeydown'" class="currencyInput" />
+            </div>
+            <div>
+                <span class="caption">Quantity:</span>
+                <input data-bind="value: quantity, valueUpdate: 'afterkeydown'" class="integerInput" />
+            </div>
+            <div>
+                <span class="caption">Ext. Price:</span>
+                <input data-bind="value:extendedPrice, valueUpdate:'afterkeydown'" />
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/MyScripts/data.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var photoPath = "/images/";
+
+            // function helper
+            my.formatCurrency = function (value) {
+                return "$" + value.toFixed(2);
+            };
+
+            // for creating Product Models
+            my.Product = function () {
+                this.id = ko.observable();
+                this.salePrice = ko.observable();
+                this.photo = ko.observable();
+                this.shortDescription = ko.observable();
+                this.photoUrl = ko.computed(function () {
+                    return photoPath + this.photo();
+                }, this);
+            };
+
+            // NOTE: I am showing 2 ways to handle "this" with a computed observable.
+            // 1st way is to pass in what "this should" represent.
+            // 2nd way is to skip it, and use a variable that is scoped
+            // outside of the computed function.
+
+            // The ViewModel
+            my.vm = {
+                metadata: {
+                    pageTitle: "Knockout: Computed - Read/Write Converter",
+                    personal: {
+                        link: "http://twitter.com/john_papa"
+                    }
+                },
+                product: ko.observable(
+                    new my.Product()
+                        .shortDescription("Taylor Koa Series K66ce")
+                        .salePrice(4199)
+                        .photo("Taylor Koa Series K66ce Grand Symphony 12-String Cutaway Acoustic Electric Guitar.png")
+                ),
+                quantity: ko.observable(2)
+            };
+
+            ///////////////////////////////////////////////////
+            // read/write computed
+            ///////////////////////////////////////////////////
+            my.vm.extendedPrice = ko.computed({
+                read: function () {
+                    var extPrice = this.product() ?
+                        this.product().salePrice() * parseInt("0" + this.quantity(), 10) : 0;
+                    return '$' + extPrice.toFixed(2);
+                },
+                write: function (value) {
+                    value = parseFloat(value.replace(/[^\.\d]/g, ""));
+                    value = isNaN(value) ? 0 : value;
+                    var unitPrice = value / this.quantity();
+                    this.product().salePrice(unitPrice);
+                },
+                owner: my.vm
+            });
+
+            ko.applyBindings(my.vm);
+        });
+    </script>
+}
+

@@ -1,0 +1,94 @@
+﻿<form class="form-horizontal" style="padding-top:10px">
+    <div class="row">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">FromDate:</label>
+            <div class="col-sm-2">
+                <input type="date" data-bind="value:fromDate" class="form-control" />
+            </div>
+            <label class="col-sm-1 control-label">ToDate:</label>
+            <div class="col-sm-2">
+                <input type="date" data-bind="value:toDate" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label">ReportType:</label>
+            <div class="col-sm-2">
+                <select data-bind="options: reportTypes, value: selectedreportType, optionsText: 'name'" class="form-control"></select>
+            </div>
+            <label class="col-sm-1 control-label">ChartType:</label>
+            <div class="col-sm-2">
+                <select data-bind="options: chartTypes, value: selectedchartType, optionsText: 'name'" class="form-control"></select>
+            </div>
+            <label class="col-sm-2 control-label">SelectApplication:</label>
+            <div class="col-sm-2">
+                <select data-bind="options: selectedApplication, value: selectedApplicationType, optionsText: 'name'" class="form-control"></select>
+            </div>
+            <div class="col-sm-offset-11">
+                <button id="btnFilter" data-bind="click:showFilters" class="btn btn-success" style="background-color:blue">ApplyFilters</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-11">
+                <button class="btn btn-success" data-bind="click:showFiltersForChart"> ExportCharts</button>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/ko-protected-observable.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var my = {};
+            my.mepReportFiltersViewmodel = (function () {
+                var
+                    fromDate = ko.protectedObservable(moment().format('YYYY-MM-DD')),
+                    toDate = ko.protectedObservable(moment().format('YYYY-MM-DD')),
+                    selectedreportType = ko.protectedObservable(""),
+                    selectedchartType = ko.protectedObservable(""),
+                    selectedApplicationType = ko.protectedObservable(""),
+                    reportTypes = ko.observableArray([{ name: "Yearly", value: "Yearly" }, { name: "Monthly", value: "Monthly" }, { name: "Weekly", value: "Weekly" }]),
+                    chartTypes = ko.observableArray([{ name: "BarChart", value: "BarChart" }, { name: "TrendChart", value: "TrendChart" }]),
+                    selectedApplication = ko.observableArray([{ name: "BMP", value: "BMP" }, { name: "SPI", value: "SPI" }]),
+                    showFilters = function () {
+                        my.mepReportFiltersViewmodel.fromDate.commit();
+                        my.mepReportFiltersViewmodel.toDate.commit();
+                        my.mepReportFiltersViewmodel.selectedchartType.commit();
+                        my.mepReportFiltersViewmodel.selectedreportType.commit();
+                        my.mepReportFiltersViewmodel.selectedApplicationType.commit();
+                        toastr.success(this.fromDate() + "// " + this.toDate() + "// " + this.selectedreportType().name + "// " + this.selectedchartType().name + "// " + this.selectedApplicationType().name);
+                    },
+                    showFiltersForChart = function () {
+                        toastr.success(this.fromDate() + "// " + this.toDate() + "// " + this.selectedreportType().name + "// " + this.selectedchartType().name + "// " + this.selectedApplicationType().name);
+                    },
+                    init = function () {
+                        my.mepReportFiltersViewmodel.fromDate.commit();
+                        my.mepReportFiltersViewmodel.toDate.commit();
+                        my.mepReportFiltersViewmodel.selectedchartType.commit();
+                        my.mepReportFiltersViewmodel.selectedreportType.commit();
+                        my.mepReportFiltersViewmodel.selectedApplicationType.commit();
+                    };
+                return {
+                    fromDate: fromDate,
+                    toDate: toDate,
+                    selectedreportType: selectedreportType,
+                    selectedchartType: selectedchartType,
+                    selectedApplicationType: selectedApplicationType,
+                    reportTypes: reportTypes,
+                    chartTypes: chartTypes,
+                    selectedApplication: selectedApplication,
+                    showFilters: showFilters,
+                    showFiltersForChart: showFiltersForChart,
+                    init: init
+                };
+            }());
+            my.mepReportFiltersViewmodel.fromDate('2013-11-27');
+            my.mepReportFiltersViewmodel.toDate('2018-11-30');
+            ko.applyBindings(my.mepReportFiltersViewmodel);
+            my.mepReportFiltersViewmodel.init();
+        })
+
+    </script>
+}

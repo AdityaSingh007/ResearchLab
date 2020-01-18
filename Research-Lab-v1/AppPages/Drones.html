@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h2>Drones</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <table id="DronesTable" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">License</th>
+                        <th scope="col">Base</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">AirTimeHours</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="Scripts/MyScripts/Drone.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DroneService.LoadDronesPage();
+        });
+    </script>
+</body>
+</html>

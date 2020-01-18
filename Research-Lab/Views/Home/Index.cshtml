@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div id="div1" class="col-md-12">
+        <form id="indexForm">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="Email" aria-describedby="emailHelp" placeholder="Enter email">
+                @*<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" data-bind="value:Email">*@
+                @*<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>*@
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="Password" placeholder="Password">
+                @*<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" data-bind="value:Password">*@
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="CheckMeOut">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            @*<div class="form-group">
+                    <input class='input-group datePickerInputValid' id='dateStart' value="MM/DD/YYYY" data-format="MM/dd/yyyy" style="width: 200px;" />
+                </div>*@
+            <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
+        </form>
+    </div>
+</div>
+<section id="customOutput"></section>
+@*<div id="dialog">
+        <p>Content here automatically gets placed into a dialog</p>
+    </div>*@
+@section scripts
+{
+    <script id="custom-Form" type="text/template">
+        <div class="row">
+            <div id="div1" class="col-md-12">
+                <form id="indexForm">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="Email" aria-describedby="emailHelp" placeholder="Enter email">
+                        @*<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" data-bind="value:Email">*@
+                        @*<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="Password" placeholder="Password">
+                        @*<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" data-bind="value:Password">*@
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="CheckMeOut">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    @*<div class="form-group">
+                            <input class='input-group datePickerInputValid' id='dateStart' value="MM/DD/YYYY" data-format="MM/dd/yyyy" style="width: 200px;" />
+                        </div>*@
+                    <button type="submit" class="btn btn-primary" id="btnSubmit1">Submit</button>
+                </form>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$('div').each(function () {
+            //    alert($(this).html())
+            //})
+
+            //var rowsClasses = $('.row');
+            //alert(rowsClasses.length)
+
+            //$('#div1 tr:even').html('It has been updated')
+            //$('<span>Something appended</span>').appendTo('#div1')
+
+            //$('#dialog').dialog();
+
+            //var customer = {
+            //    Email: ko.observable(),
+            //    Password: ko.observable()
+            //}
+            //ko.applyBindings(customer);
+
+            var ids = [1, 2, 3];
+            $('#btnSubmit').click(function () {
+                event.preventDefault();
+                //var customer = JSON.stringify({ Email: $('#exampleInputEmail1').val(), Password: $('#exampleInputPassword1').val() })
+                //var customer = "cust=" + JSON.stringify({ Email: $('#exampleInputEmail1').val(), Password: $('#exampleInputPassword1').val() })
+                var customer = $('form').serializeArray();
+                var ajaxOptionsPost = {
+                    url: "/Home/ProcessAjaxRequest",
+                    data: ko.toJSON({ customer: customer }),
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    datatype: 'json'
+                };
+                var ajaxOptionsGet = {
+                    url: "/Home/ProcessAjaxRequest",
+                    data: customer,
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    datatype: 'json'
+                };
+                $.ajax(ajaxOptionsGet).done(Success()).fail(failure());
+                //$.ajax({
+                //    url: "/Home/ProcessAjaxRequest",
+                //    data: customer,
+                //    type: "POST",
+                //    contentType: "application/json; charset=utf-8",
+                //    datatype: 'json',
+                //    success: function (data, status, xhr) {
+                //    },
+                //    error: function (xhr, status, error) {
+                //        alert('Error Occured: ' + error);
+                //    }
+                //});
+
+                //$.get('/Home/ProcessAjaxRequest', customer).done(function () {
+                //    alert('Success');
+                //}).fail(function () {
+                //    alert('failed');
+                //})
+
+                function Success() {
+                    alert('Success!!!');
+                }
+
+                function failure() {
+                    alert('Boom!!! Its a crash');
+                }
+            });
+
+            //$('form').submit(function (event) {
+            //    event.preventDefault();
+            //    var customer = $('form').serializeArray();
+            //    $.get('/Home/Index', customer).done(function () {
+            //        alert('Success');
+            //    }).fail(function () {
+            //        alert('failed');
+            //    })
+            //});
+
+            //$($('#custom-Form').html()).appendTo('#customOutput');
+        })
+
+    </script>
+}

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "CustomBindingHandler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/MyStyles/styles.css" rel="stylesheet" />
+<link href="~/Content/MyStyles/fonts.css" rel="stylesheet" />
+<div class="page" style="padding-top:30px">
+    <div id="main">
+        <div class="leftFloat">
+            <table>
+                <thead>
+                    <tr><td>Product</td><td>Rating</td></tr>
+                </thead>
+                <tbody>
+                    <!-- ko foreach:productsToShow -->
+                    <tr data-bind="click:$parent.selectProduct, css: { selectedRow: isSelected}" class="selectableRow">
+                        <td><span data-bind="text: shortDesc"></span></td>
+                        <td><span data-bind="text: rating"></span></td>
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
+        <!-- ko if: selectedProduct() -->
+        <div class="leftFloat" data-bind="fadeVisible: canShowDetails()">
+            <div class="productDetailsArea">
+                <!-- ko template: {name: 'productDetailsWithStarRating', data: selectedProduct} -->
+                <!-- /ko -->
+            </div>
+        </div>
+        <!--/ko-->
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/ko-protected-observable.js"></script>
+    <script src="~/Scripts/MyScripts/data.js"></script>
+    <script src="~/Scripts/MyScripts/utils.js"></script>
+    <script src="~/Scripts/MyScripts/koExternalTemplateEngine_all.min.js"></script>
+    @*<script src="~/Scripts/MyScripts/6-01-custom-binding-handlers-fadeVisible.js"></script>*@
+    <script src="~/Scripts/MyScripts/6-02-custom-binding-handlers-jqButton.js"></script>
+    <script src="~/Scripts/MyScripts/binding-handlers.js"></script>
+}

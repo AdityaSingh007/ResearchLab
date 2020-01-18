@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Throttle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section style="padding-top:10px">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input data-bind="value: nameFilter, valueUpdate: 'afterkeydown'" type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        Go!
+                    </button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div>
+</section>
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var vm = function () {
+                var nameFilter = ko.observable('').extend({ throttle: 3000 }),
+                    searchPeople = function () {
+                        var startTime = moment().format('h:mm:ss a');
+                        toastr.info(startTime);
+                        $.getJSON(window.location.origin + '/Home/ThrottlingHandler');
+                    },
+                    init = function () {
+                        nameFilter.subscribe(searchPeople);
+                    }
+
+                return {
+                    init: init,
+                    nameFilter: nameFilter
+                }
+            }();
+
+            vm.init();
+            ko.applyBindings(vm);
+        });
+    </script>
+
+}
+

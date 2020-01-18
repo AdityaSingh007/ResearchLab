@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Knockout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<form class="form-horizontal" style="padding-top:10px">
+
+        <div class="form-group">
+            <label for="fullname" class="col-sm-2 control-label">Enter Name:-</label>
+            <div class="col-sm-7">
+                <input type="text" id="fullname" name="fullname" class="form-control" data-bind="value:name" />
+                <input type="checkbox" class="form-control" data-bind="checked:nameVisible" />
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-info form-control" data-bind="click:changename">Submit</button>
+            </div>
+            <p>Hello !!!<span data-bind="text:name, visible:nameVisible"></span></p>
+            <br />
+            <span data-bind="text:displayName"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-3">
+                    <button class="btn btn-info form-control" data-bind="click:addItem">Add</button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-info form-control" data-bind="click:removeItem">Remove</button>
+                </div>
+            </div>
+            <div class="row">
+                <ul data-bind="template:{name: 'listTempl',foreach:list}"></ul>
+            </div>
+
+        </div>
+    </form>*@
+<form class="form-inline" style="padding-top:10px">
+    <div id="main">
+        <div class="showroom">
+            <div>
+                <table class="table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Ext. Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind='foreach: lines'>
+                        <tr>
+                            <td style="width: 25px;">
+                                <select data-bind="options:$parent.products, value:product, optionsText: 'shortDescription', optionsCaption:'Select a product ...'" class="form-control"></select>
+                            </td>
+                            <td data-bind="if: product" style="width: 100px;">
+                                <span data-bind='text: my.formatCurrency(product().salePrice())'></span>
+                            </td>
+                            <td style="width: 100px;">
+                                <input data-bind='visible: product, value: quantity, valueUpdate: "afterkeydown"' class="integerInput form-control" />
+                            </td>
+                            <td style="width: 100px;">
+                                <span data-bind='visible: product, text: my.formatCurrency(extendedPrice())'></span>
+                            </td>
+                            <td style="width: 100px;">
+                                <a href='#' class="btn btn-info" data-bind='click: $parent.removeLine'>Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    Total value: <span data-bind='text: my.formatCurrency(grandTotal())'></span>
+                </p>
+                <button class="btn btn-success" data-bind='click: addLine'>Add product</button>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/MyScripts/data.js"></script>
+    <script id="listTempl" type="text/html">
+        <li data-bind="text:name"></li>
+    </script>
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        //    var data = [{ name: "Bob" }, { name: "Joe" }, { name: "John" }];
+
+        //    var viewmodel = {
+        //        name: ko.observable("bob"),
+        //        changename: function () {
+        //            this.name("steve");
+        //        },
+
+        //        nameVisible: ko.observable(true),
+        //        list: ko.observableArray(data),
+        //        addItem: function () {
+
+        //            this.list.push({ name: "steve" });
+        //        },
+        //        removeItem: function () {
+        //            this.list.pop();
+        //        }
+        //    }
+
+        //    viewmodel.displayName = ko.computed(function () {
+        //        return this.name() + "is" + (!this.nameVisible() ? "not" : "") + "visible";
+
+        //    }, viewmodel);
+
+        //    ko.applyBindings(viewmodel);
+        //})
+
+        $(document).ready(function () {
+            var photoPath = "/images/";
+
+            // function helper
+            my.formatCurrency = function (value) {
+                return "$" + value.toFixed(2);
+            };
+
+            // for creating Product Models
+            my.Product = function () {
+                this.id = ko.observable();
+                this.salePrice = ko.observable();
+                this.photo = ko.observable();
+                this.shortDescription = ko.observable();
+                this.photoUrl = ko.computed(function () {
+                    return photoPath + this.photo();
+                }, this);
+            };
+
+            // for creating LineItem objects
+            my.LineItem = function () {
+                var self = this;
+                self.product = ko.observable();
+                self.quantity = ko.observable(1); // default
+                self.extendedPrice = ko.computed(function () {
+                    return self.product() ? self.product().salePrice() * parseInt("0" + self.quantity(), 10) : 0;
+                });
+            };
+            // NOTE: I am showing 2 ways to handle "this" with a computed observable.
+            // 1st way is to pass in what "this should" represent.
+            // 2nd way is to skip it, and use a variable that is scoped
+            // outside of the computed function.
+
+            // The ViewModel
+            my.vm = {
+                metadata: {
+                    pageTitle: "Knockout: Computed (with grand totals)",
+                    personal: {
+                        link: "http://twitter.com/john_papa"
+                    }
+                },
+                products: ko.observableArray([]),
+                lines: ko.observableArray([new my.LineItem()]),
+                addLine: function () {
+                    my.vm.lines.push(new my.LineItem());
+                },
+                removeLine: function (line) {
+                    my.vm.lines.remove(line);
+                },
+                loadProducts: function () {
+                    $.each(my.sampleData.data.Products, function (i, p) {
+                        my.vm.products.push(new my.Product()
+                            .id(p.Id)
+                            .salePrice(p.SalePrice)
+                            .photo(p.Photo)
+                            .shortDescription(p.Model.Name)
+                        );
+                    });
+                }
+            };
+
+            // Computed observable function.
+            // We append it to the ViewModel here.
+            my.vm.grandTotal = ko.computed(function () {
+                var total = 0;
+                $.each(this.lines(), function () {
+                    // "this" is part of the inner function
+                    total += this.extendedPrice();
+                });
+                return total;
+            }, my.vm);
+
+            my.vm.loadProducts();
+            ko.applyBindings(my.vm);
+        });
+    </script>
+}
+

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "ExternalTemplate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/MyStyles/fonts.css" rel="stylesheet" />
+<link href="~/Content/MyStyles/styles.css" rel="stylesheet" />
+<div class="page" style="padding-top:30px">
+    <div id="main">
+        <div class="leftFloat">
+            <div>
+                <span class="caption">Select a Product</span>
+            </div>
+            <div>
+                <input type="checkbox" data-bind="checked: showAll" /><span>All Products</span>
+            </div>
+            <ul class="smallList">
+                <!-- ko template: {name: 'productsList', foreach:productsToShow, beforeRemove: hideProducts, afterAdd: showProducts} -->
+                <!-- /ko -->
+            </ul>
+        </div>
+        <!-- ko if: selectedProduct() -->
+        <div class="leftFloat">
+            <div class="productDetailsArea">
+                <div>
+                    <input type="checkbox" data-bind="checked: showDetails" /><span>Expand Details</span>
+                </div>
+                <!-- ko template: {name: productView, data: selectedProduct} -->
+                <!-- /ko -->
+            </div>
+        </div>
+        <!--/ko-->
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/ko-protected-observable.js"></script>
+    <script src="~/Scripts/MyScripts/data.js"></script>
+    <script src="~/Scripts/MyScripts/utils.js"></script>
+    <script src="~/Scripts/MyScripts/5-05-dynamic-templates-and-item-selection.js"></script>
+    @*<script src="~/Scripts/MyScripts/koExternalTemplateEngine-amd.min.js"></script>*@
+    @*<script src="~/Scripts/MyScripts/koExternalTemplateEngine.min.js"></script>*@
+    <script src="~/Scripts/MyScripts/koExternalTemplateEngine_all.min.js"></script>
+    <script type="text/html" id="productsList">
+        <li data-bind="css: { selected: isSelected}" class="selectable">
+            <div data-bind="text: shortDesc, click:$root.selectProduct">
+            </div>
+        </li>
+    </script>
+}
+

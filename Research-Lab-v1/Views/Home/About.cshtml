@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+
+<h1>PushStack Demo</h1>
+<div class="row">
+    <div class="col-md-3">
+        <button id="clickme" class="form-control btn-block">ClickMe!!!</button>
+    </div>
+    <div class="col-md-3">
+        <button id="clickMeAlso" class="form-control btn-success">ClickMe Also!!!</button>
+    </div>
+</div>
+@*<input id="clickme" type="button" value="click me" />*@
+
+<div id="out1">1</div>
+<div id="out2">2</div>
+<div id="out3">3</div>
+<div id="out4">4</div>
+<div id="out5">5</div>
+<div id="out6">6</div>
+<div id="out7">7</div>
+
+<div id="output">
+    <h1>OUTPUT</h1>
+    <div id="out1">
+
+    </div>
+</div>
+
+<div id="output1">
+    <h1>OUTPUT1</h1>
+    <div id="out1">
+
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/MyScripts/CustomJqueryUtility.js"></script>
+    <script type="text/javascript">
+        var eventHandlers = {
+            type: "My Event Handler Called",
+            clickedButtonEvent: function (event) {
+                toastr.success("Button event called and Type: " + this.type);
+            },
+            writeHtml: function (id, contextSelector) {
+                $(id, contextSelector).html("Hi There");
+            }
+        }
+
+        $(function () {
+            $.fn.everyThird = function () {
+                var arr = [];
+                $.each(this, function (idx, item) {
+                    if (idx % 3 == 0)
+                        arr.push(item);
+                });
+                return this.pushStack(arr, "everyThird", "");
+            }
+
+            $("#clickme").click(function () {
+                $("div").everyThird().css("color", "Red").end().css("font-weight", "bold");
+            });
+
+            $("#clickMeAlso").click(function () {
+                eventHandlers.clickedButtonEvent();
+                //$.proxy(eventHandlers.clickedButtonEvent(), eventHandlers);
+                //toastr.info(this.type, eventHandlers);
+                eventHandlers.writeHtml("#out1", "#output");
+                KpmgPlugin.log('Hi There !!!')
+
+            })
+
+            var animal = {
+                actions: {
+                    eat: function () { console.log("I'm eating"); },
+                    sit: function () { console.log("I'm sitting"); }
+                }
+            }
+
+            var dog = {
+                actions: {
+                    bark: function () { console.log("I'm barking"); },
+                    dig: function () { console.log("I'm digging"); }
+                }
+            }
+
+            //dog.actions.dig();
+            //$.extend(dog, animal);
+            //console.log('extended');
+            //dog.actions.sit();
+            //dog.actions.dig();
+
+            // with deep copy
+            dog.actions.dig();
+            $.extend(true, dog, animal);
+            console.log('extended');
+            dog.actions.sit();
+            dog.actions.dig();
+        });
+    </script>
+
+}

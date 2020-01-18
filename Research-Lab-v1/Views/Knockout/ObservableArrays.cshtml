@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "ObservableArrays";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="main">
+    <div class="showroom">
+        <div>
+            <span data-bind="text:products().length"></span><span>Products</span>
+        </div>
+        <div>
+            <select class="form-control" multiple="multiple"
+                    data-bind="options:products, selectedOptions:selectedProducts, optionsText:'description'"></select>
+
+            <div>
+                <button class="btn btn-danger" data-bind="click: removeSelected, enable: productsAreSelected">Remove</button>
+                <button class="btn btn-success" data-bind="click: sortProducts, enable: productsExist">Sort</button>
+            </div>
+            <form class="form-horizontal" data-bind="submit: addItem">
+                Add item:
+                <input class="form-control" type="text" data-bind="value:itemToAdd, valueUpdate:'afterkeydown'" />
+                <button class="btn btn-success" type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/MyScripts/data.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var photoPath = "/images/";
+	        // Product construction
+	        var Product = function () {
+	            this.id = ko.observable();
+	            this.salePrice = ko.observable();
+	            this.photo = ko.observable();
+	            this.itemNumber = ko.observable();
+	            this.description = ko.observable();
+	            this.photoUrl = ko.computed(function () {
+	                return photoPath + this.photo();
+	            }, this);
+	        };
+
+	        my.vm = {
+	            metadata: {
+	                pageTitle: "Knockout: Observable Arrays",
+	                personal: {
+	                    link: "http://twitter.com/john_papa"
+	                }
+	            },
+
+	            // observable array of products
+	            products: ko.observableArray([]),
+	            selectedProducts: ko.observableArray([]),
+	            itemToAdd: ko.observable(""),
+
+	            // loading the observable array with sample data
+	            load: function () {
+	                $.each(my.sampleData.data.Products, function (i, p) {
+	                    my.vm.products.push(new Product()
+    	                        .id(p.Id)
+    	                        .salePrice(p.SalePrice)
+    	                        .photo(p.Photo)
+    	                        .itemNumber(p.ItemNumber)
+    	                        .description(p.Description)
+	                    );
+	                });
+	            }
+	        };
+
+
+
+
+	        /////////////////////////////////////
+	        // Add an item code
+	        my.vm.addItem = function () {
+	            // Prevent blanks
+	            if (my.vm.itemToAdd() !== "") {
+	                my.vm.products.push(
+	                    new Product().
+    	                    description(my.vm.itemToAdd()));
+	            }
+	            my.vm.itemToAdd("");
+	        };
+	        /////////////////////////////////////
+
+
+	        /////////////////////////////////////
+	        // Removal code
+	        my.vm.productsAreSelected = ko.computed(function () {
+	            return my.vm.selectedProducts().length > 0;
+	        }); //, my.vm);
+
+            my.vm.removeSelected = function () {
+                console.log(my.vm.selectedProducts());
+	            my.vm.products.removeAll(my.vm.selectedProducts());
+	            my.vm.selectedProducts([]);
+	        };
+
+
+	        /////////////////////////////////////
+
+	        /////////////////////////////////////
+	        // Sorting code
+	        my.vm.productsExist = ko.computed(function () {
+	            return my.vm.products().length > 0;
+	        });
+
+	        my.vm.sortProducts = function () {
+	            my.vm.products.sort(
+	                function (left, right) {
+	                    return left.description().toLowerCase() === right.description().toLowerCase()
+	                        ? 0 : (left.description().toLowerCase() < right.description().toLowerCase() ? -1 : 1);
+	                }
+                    );
+	            };
+	        /////////////////////////////////////
+
+	        my.vm.load();
+	        ko.applyBindings(my.vm);
+	    });
+    </script>
+}
+

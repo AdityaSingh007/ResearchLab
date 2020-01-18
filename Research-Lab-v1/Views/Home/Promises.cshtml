@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Promises";
+}
+<h1>When Example</h1>
+	time for first div: <input id="div1time" type="text" value="1000" /><br />
+	time for second div: <input id="div2time" type="text" value="2000" /><br />
+@*<input id="button1" type="button" value="Resolve" />
+    <input id="button2" type="button" value="Reject" />*@
+<div class="col-md-3">
+    <button id="button1" class="form-control btn btn-info">Resolve</button>
+</div>
+<div class="col-md-3">
+    <button id="button2" class="form-control btn btn-info">Reject</button>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div id="Output" hidden><img src="../Content/images/loading-image.gif" /></div>
+    </div>
+</div>
+
+<p>
+    <div id="div1" style="display:none; width:500px; border: 1px solid black; padding: 5px;">	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+<p>
+    <div id="div2" style="display:none; width:500px; border: 1px solid black; padding: 5px;">	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    @section scripts{
+        <script type="text/javascript">
+            function showDivsResolve() {
+                var promise1 = $("#div1").fadeIn(parseInt($("#div1time").val())).promise();
+                var promise2 = $("#div2").fadeIn(parseInt($("#div2time").val())).promise();
+                var when = $.when(promise1, promise2, $('#Output').fadeIn("slow")).done(function () { alert('done'); $("#div1").hide(); $("#div2").hide(); $('#Output').hide() });
+            }
+
+            function showDivsReject() {
+                var promise1 = $("#div1").fadeIn(parseInt($("#div1time").val())).promise();
+                var promise2 = $("#div2").fadeIn(parseInt($("#div2time").val())).promise();
+                var def = $.Deferred();
+
+                var when = $.when(promise1, promise2, def).then(
+                    function () { alert('done'); $("#div1").hide(); $("#div2").hide() },
+                    function () { alert('reject'); $("#div1").hide(); $("#div2").hide() }
+                );
+
+                setTimeout(def.reject, 500);
+            }
+
+            $(function () {
+                $("#button1").click(showDivsResolve);
+                $("#button2").click(showDivsReject);
+            });
+        </script>
+    }
+
+

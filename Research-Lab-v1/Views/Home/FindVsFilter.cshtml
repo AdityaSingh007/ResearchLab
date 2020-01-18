@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "FindVsFilter";
+}
+
+<button id="showButton">Show Pubs</button>
+<ul id="people">
+    <li class="publisher">Elijah Manor</li>
+    <li class="publisher">Dan Wahlin</li>
+    <li>Aaron Skonnard</li>
+    <li>Fritz Onion</li>
+    <li>Keith Sparkjoy</li>
+</ul>
+<h2>Pubs</h2>
+<ul id="output"></ul>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#showButton").click(function () {
+                var $names = $("#people li");
+                var $output = $("#output");
+                var $pubs = $names.filter('.publisher');
+
+                if ($pubs.length) {
+                    var html = "";
+                    $pubs.each(function () {
+                        html += "<li>" + $(this).text() + "</li>";
+                    });
+                    $output.append(html);
+                }
+                else {
+                    $output.append("<li>No pubs found</li>");
+                }
+            });
+        });
+    </script>
+}

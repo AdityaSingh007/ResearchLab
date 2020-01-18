@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "ShoppingCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/MyStyles/styles.css" rel="stylesheet" />
+<link href="~/Content/MyStyles/fonts.css" rel="stylesheet" />
+<div class="page" style="padding-top:50Px">
+    <div id="main">
+        <div>
+            <div class="saleItemsHeader">
+                <span data-bind="text:products().length"></span>
+                <span>Products</span>
+            </div>
+            <ul class="saleItems leftFloat">
+                <!-- ko template: {foreach:products, beforeRemove:hideItem, afterAdd: showItem}  -->
+                <li class="mediumProductSquares">
+                    <!-- ko template: {name: 'productDetailsForSale'}  -->
+                    <!-- /ko -->
+                </li>
+                <!-- /ko -->
+            </ul>
+            <div class="cartContainer leftFloat">
+                <div class="cartItemsContainer">
+                    <div class="dialogTitleBorder">
+                        <span class="borderTitleText">Shopping Cart</span>
+                    </div>
+                    <table class="cartItems leftFloat">
+                        <thead>
+                            <tr><td class="descText">Product</td><td>Price</td><td>Qty</td><td>Total</td><td></td></tr>
+                        </thead>
+                        <tbody>
+                            <!-- ko template: {name:'cartItems', foreach:shoppingCart, beforeRemove:hideItem, afterAdd: showItem}  -->
+                            <!-- /ko -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cartSummaryContainer">
+                    <span>Total Items</span><span data-bind="text:shoppingCart().length"></span>
+                    <span>Total Price</span><span data-bind="text:my.formatCurrency(grandTotal())"></span>
+                    <button data-bind="jqButton: { enable: shoppingCart().length > 0}, click: $root.placeOrder">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-bind="jqDialog: dialogOptions ">
+        <span data-bind="text: dialogOptions.text"></span>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/ko-protected-observable.js"></script>
+    @*<script src="~/Scripts/MyScripts/data.js"></script>*@
+    <script src="~/Scripts/MyScripts/utils.js"></script>
+    <script src="~/Scripts/MyScripts/koExternalTemplateEngine_all.min.js"></script>
+    <script src="~/Scripts/MyScripts/binding-handlers.js"></script>
+    <script src="~/Scripts/MyScripts/6-05-loading-and-saving.js"></script>
+    <script src="~/Scripts/MyScripts/ajaxservice.js"></script>
+    <script src="~/Scripts/MyScripts/dataservice.shopping.js"></script>
+}
+

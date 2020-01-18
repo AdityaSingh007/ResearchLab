@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<ul id="menu">
+    <li>
+        <a href="#">Browsers</a>
+        <ul>
+            <li><a href="#">Firefox</a></li>
+            <li><a href="#">Google Chrome</a></li>
+            <li><a href="#">Internet Explorer</a></li>
+            <li><a href="#">Opera</a></li>
+            <li><a href="#">Safari</a></li>
+        </ul>
+    </li>
+    <!-- ... -->
+</ul>
+<div class="row">
+    <div class="col-md-6">
+        <div id="shuffle" class="cycle-slideshow" data-cycle-fx="scrollHorz">
+            <img src="~/Images/Affidavit.PNG" width="600" height="400" />
+            <img src="~/Images/Higher_Tier.PNG" width="600" height="400" />
+            <img src="~/Images/Risk.PNG" width="600" height="400" />
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @*<script src="~/Scripts/jquery.cycle.all.js"></script>*@
+    <script src="~/Scripts/jquery.cycle2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#menu li").hover(function (e) {
+                $(this).find("ul")
+                    .stop(true, true)
+                    .slideToggle(400, "easeOutBounce");
+            });
+        });
+    </script>
+
+}
+

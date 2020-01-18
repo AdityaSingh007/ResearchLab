@@ -1,0 +1,272 @@
+﻿
+@{
+    ViewBag.Title = "JqueryResearch";
+}
+<style>
+    .highlight {
+        background-color: yellow;
+    }
+
+    .content {
+        display: inline-block;
+    }
+</style>
+
+<div class="row">
+    <div id="div1" class="col-md-12">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                @*<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>*@
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1">
+        <label>Search:</label>
+    </div>
+    <div class="col-md-3">
+        <input id="Autocomplete" type="text" class=" form-control" />
+    </div>
+</div>
+<div id="draggables" class="row">
+    <div>
+        <header>A</header>
+    </div>
+    <div>
+        <header>B</header>
+    </div>
+    <div>
+        <header>C</header>
+    </div>
+</div>
+<div id="trash" class="row">
+    <button class="btn btn-danger"><span class="glyphicon glyphicon-alert"></span></button>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <ul id="sortable">
+            <li>C#</li>
+            <li>JavaScript</li>
+            <li>Ruby</li>
+            <li>Objective</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <input type="submit" class="form-control btn-default" id="btnGIF" />
+    </div>
+
+</div>
+<div id="output" hidden><img src="~/Content/ajax-loader.gif" /></div>
+<div class="container">
+    <div class="row">
+        <h3>Items to Push</h3>
+        <ul id="items-to-push">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <h3>Stack</h3>
+        <ul id="stack"></ul>
+        <h3>Items Popped</h3>
+        <ul id="items-popped"></ul>
+        @*<button id="push">Push</button>
+            <button id="pop">Pop</button>*@
+    </div>
+
+    <button id="push" class="btn btn-info">Push</button>
+    <button id="pop" class="btn btn-danger">Pop</button>
+    <div class="row">
+        <div class="col-md-6" style="padding-top:10px">
+            <ul id="items">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+                <li>Item 5</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <div style="width: 600px;">
+                <ul id="source" style="float: left;">
+                    <li><input type="checkbox" /> <div class="content">Item 1</div></li>
+                    <li><input type="checkbox" /> <div class="content">Item 2</div></li>
+                    <li><input type="checkbox" /> <div class="content">Item 3</div></li>
+                    <li><input type="checkbox" /> <div class="content">Item 4</div></li>
+                    <li><input type="checkbox" /> <div class="content">Item 5</div></li>
+                </ul>
+                <ul id="destination" style="float: right;"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-7 col-md-3">
+            <button id="btnAdd" class="btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#dialog').dialog({ autopen: false });
+            var customer = JSON.stringify([{ Email: $('#exampleInputEmail1').val(), Password: $('#exampleInputPassword1').val() }])
+            //var customer = {};
+            //customer.Email = $('#exampleInputEmail1').val();
+            //customer.Password = $('#exampleInputPassword1').val();
+
+            $('#btnSubmit').click(function () {
+                $.ajax({
+                    url: "/Home/ProcessAjaxRequest",
+                    data: customer,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    //datatype: 'json',
+                    success: function (data, status, xhr) {
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error Occured: ' + status);
+                    }
+                });
+
+            });
+
+            var classes = [
+                "C#",
+                "Entity Framework",
+                "LINQ",
+                "ASP.NET MVC",
+                "jQuery UI",
+                "CSS",
+                "Ruby",
+                "jquery",
+                "JavaScript",
+                "TDD",
+                "Design Patterns"
+            ];
+
+            $('#Autocomplete').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Home/Search/',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+                //source: classes
+            });
+
+            $('#draggables').children().draggable();
+            $('#trash').droppable({
+                drop: function (event, ui) {
+                    ui.draggable.effect('explode');
+                }
+            });
+
+            $('#sortable').sortable({
+                placeholder: "placeholder"
+            });
+
+            $('#btnGIF').click(function () {
+                var promises = [
+                    $.getJSON("../contacts1.js"),
+                    $("#output").fadeIn("slow"),
+                    new $.Deferred(function (dfd) {
+                        setTimeout(dfd.resolve, 5000);
+                        return dfd.promise;
+                    })
+                ];
+
+                $.when.apply($, promises).then(
+                    function (xhr, faded, timer) {
+                        faded.html(xhr[0].length + " Contact(s) Found");
+                        $.each(xhr[0], function (index, item) {
+                            item.name.appendTo('#output');
+                        });
+                    },
+                    function (xhr, status) {
+                        $("#output").html("Error retrieving contacts.")
+                    }
+                );
+            });
+
+            $("#push").on("click", function () {
+                $("#items-to-push").find("li:first").prependTo("#stack");
+            });
+            $("#pop").on("click", function () {
+                $("#stack").find("li:first").appendTo("#items-popped");
+            });
+
+            function notify(message) {
+                var $notify = $("#notify");
+
+                if (!!$notify) {
+                    $("<div />", {
+                        id: "notify",
+                        html: message
+                    }).appendTo("body");
+                } else {
+                    $notify.html(message);
+                }
+            }
+
+            notify("My 1st Message");
+            notify("My 2nd Message");
+
+            $(document).on("mouseenter mouseleave", "#items li", function (e) {
+                $(this).toggleClass("highlight", e.type === "mouseenter");
+            });
+
+            $(document).on("click", "#source input", function () {
+                var $this = $(this),
+                    $item = $this.closest("li");
+
+                $item.toggleClass("highlight", $this.is(":checked"));
+            });
+            $(document).on("click", "#btnAdd", function (e) {
+                var $this = $(this),
+                    $sourceItems = $("#source li"),
+                    $destination = $("#destination");
+
+                $sourceItems = $sourceItems.add("#destination li");
+                $sourceItems.removeClass("highlight");
+
+                $sourceItems.find("input:checked").each(function () {
+                    var $this = $(this),
+                        $item = $this.closest("li");
+
+                    $('<li class="highlight">' + $item.find(".content").html() + '</li>')
+                        .appendTo($destination);
+                    $this.prop("checked", false);
+                });
+            });
+        })
+    </script>
+}
+

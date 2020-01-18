@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "ObjectSetter";
+}
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+@*<ul id="container"></ul>*@
+<ul id="members">
+    <li><a href="detail.html?id=1">Detail 1</a></li>
+    <li><a href="detail.html?id=2">Detail 2</a></li>
+    <li><a href="detail.html?id=3">Detail 3</a></li>
+    <li><a href="detail.html?id=4">Detail 4</a></li>
+    <li><a href="detail.html?id=5">Detail 5</a></li>
+</ul>
+<button class="form-control btn btn-default col-md-3">Add Item</button>
+@*<span class="glyphicon glyphicon-heart-empty"></span>*@
+@section scripts
+{
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script>
+        var links = [
+            { title: "jQuery", href: "http://jquery.com" },
+            { title: "AngularJS", href: "http://angularjs.org" }
+        ];
+
+        var html = [];
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            var $li = $("<li><a /></li>")
+                .find("a")
+                .html(link.title)
+                .attr({
+                    "title": link.title,
+                    "href": link.href
+                })
+                .end();
+            html.push($li);
+        }
+
+        //$("#container").append(html);
+        $("#members").on("click","li a", function (e) {
+            e.preventDefault();
+            toastr.error($(this).text(), "Click", { "showDuration": "100"});
+        });
+        $("button").on("click", function (e) {
+            $("<li><a href='#'>Detail 6</a></li>").appendTo("#members");
+        });
+    </script>
+}

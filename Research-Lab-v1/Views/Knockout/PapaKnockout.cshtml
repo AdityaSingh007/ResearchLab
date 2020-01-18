@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "PapaKnockout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<h1>
+        Hello Knockout
+    </h1>*@
+@*<section>
+        <div class="row">
+            Records:<div data-bind="text:persons().length" class="badge"></div>
+        </div>
+        <div class="row">
+            <ul data-bind="foreach:persons" class=" alert-success col-md-3">
+                <li>
+                    <div data-bind="text:name"></div>
+                </li>
+            </ul>
+        </div>
+    </section>*@
+
+<section>
+    <h1>Knouckout Guitars</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <label>
+                <input data-bind="checked:displayGuitars" type="checkbox" />
+                Display Guitars
+            </label>
+        </div>
+    </div>
+    <div data-bind="fadeVisible:displayGuitars(),fadeDuration:250">
+        <ul data-bind="foreach:products()">
+            <li data-bind="text: model"></li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <input type="text" data-bind="value:movie, typeahead:movies" class="form-control" />
+    </div>
+</section>
+<div data-bind="dump:movies,enable:false" class="col-md-4"></div>
+@section scripts
+{
+    <script src="~/Scripts/MyScripts/Papa.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            var person = function (name) {
+                this.name = ko.observable(name);
+            };
+
+            var personAndChild = function (first, last) {
+                this.firstName = ko.observable(first);
+                this.lastName = ko.observable(last);
+                this.child = {};
+                this.pets = {};
+            }
+
+            var viewmodel = (function () {
+                var p1 = new person('haley');
+                var p2 = new person('ella');
+                var p3 = new personAndChild('John', 'Papa');
+                var p4 = new personAndChild('coleen', 'papa');
+
+                //Circular reference in javascript
+                p3.child = ko.observable(p4);
+                p4.child = ko.observable(p3);
+
+                var persons = ko.observableArray([p1, p2]);
+                var personsChilds = ko.observableArray([p3, p4])
+
+                return {
+                    persons: persons,
+                    personAndChild: personsChilds
+                };
+
+            })();
+            //ko.applyBindings(viewmodel);
+
+        })
+    </script>
+
+}

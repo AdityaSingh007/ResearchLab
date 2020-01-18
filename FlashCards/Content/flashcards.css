@@ -1,0 +1,77 @@
+﻿div.checkbox {
+   margin-top: 15px;
+   margin-left: 15px;
+}
+
+.navbar label {
+   color: rgb(153, 153, 153);
+}
+
+div.status {
+   margin-top: 8px;
+   color: #666; 
+}
+
+.status .selectedName {
+   margin-left: 10px;
+   font-size: 18px;
+   font-weight: bold;
+}
+
+.card {    
+    position: relative;        
+    margin-top: 8px;     
+    cursor: pointer
+}
+
+.previous.hidden {
+   visibility: hidden;
+   display: block!important;
+}
+
+.next.hidden {
+   visibility: hidden;
+   display: block!important;
+}
+
+.card .face {
+    position:absolute;
+   min-height: 200px;
+    
+    -webkit-transition: .8s ease-in-out;
+    -moz-transition: .8s ease-in-out;
+    -ms-transition: .8s ease-in-out;
+    -o-transition: .8s ease-in-out;
+    transition: .8s ease-in-out;
+}
+
+.card .back {
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;    
+    backface-visibility: hidden;
+
+    -moz-transform: perspective(1500px) rotateY(-180deg);
+    -webkit-transform: perspective(1500px) rotateY(-180deg);    
+    transform: perspective(1500px) rotateY(-180deg);        
+}
+
+.card .front {
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -moz-transform: perspective(1500px) rotateY(0deg);
+    -webkit-transform: perspective(1500px) rotateY(0deg);
+    transform: perspective(1500px) rotateY(0deg);    
+}
+
+.card.flip .back {
+    -moz-transform: perspective(1500px) rotateY(0);
+    -webkit-transform: perspective(1500px) rotateY(0);
+    transform: perspective(1500px) rotateY(0);
+}
+.card.flip .front {
+    -webkit-transform: perspective(1500px) rotateY(180deg);
+    -moz-transform: perspective(1500px) rotateY(180deg);
+    transform: perspective(1500px) rotateY(180deg);
+}

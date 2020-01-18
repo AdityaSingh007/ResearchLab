@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "AjaxPromises";
+}
+<h2>AjaxPromises</h2>
+<style>
+    .content-wrapper {
+        margin: 0 auto;
+        max-width: 960px;
+    }
+
+    header .content-wrapper {
+        padding-top: 20px;
+    }
+</style>
+<div class="content-wrapper">
+    <a id="GetCustomers" href="#">Get Customers</a>
+    <a id="UpdateCustomer" href="#">Update Customer</a>
+    <a id="InsertCustomer" href="#">Insert Customer</a>
+    <a id="DeleteCustomer" href="#">Delete Customer</a>
+    <a id="GetCustomerOrders" href="#">Get Customer Orders</a>
+    <a id="GetCustomerJSONP" href="#">Get Customer via JSONP</a>
+
+    <br />
+    <h4>Customers:</h4>
+    <ul id="CustomersContainer"></ul>
+
+    <h5>Orders</h5>
+    <ul id="OrdersContainer"></ul>
+    <br />
+    <div id="OutputDiv"></div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <button id="ajaxPromises" class="form-control btn btn-success">ExecutePromises</button>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/Customers/customersPage.js"></script>
+    <script src="~/Scripts/Customers/dataService.js"></script>
+    <script>
+        customersPage.init();
+        $(document).ready(function () {
+
+            $('#ajaxPromises').click(function () {
+
+                resolveAjaxPromises(1).done(function (customersData, orders) {
+                    alert('Promises Resolved No of orders placed-' + orders[0].length);
+                    $('#OutputDiv').html('Request Completed').fadeOut("slow");
+                }).fail(function (jqXHR, statusText, err) {
+                    alert(err);
+                })
+
+            })
+
+            function resolveAjaxPromises(custId) {
+                var promises = [$.getJSON('/Home/GetCustomersData'), $.getJSON('/Home/Orders?custID=1'), $('#OutputDiv').html('Request In Progress...')];
+                return $.when.apply($, promises);
+            }
+        })
+    </script>
+}
+

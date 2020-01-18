@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<style>
+    .circle {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        margin: 5px;
+        display: inline-block;
+    }
+
+    .highlight {
+        background-color: blue;
+    }
+
+    .dynamic {
+        background-color: #C0504D;
+    }
+
+    .content1 {
+        margin: 15px;
+        background-color: red;
+    }
+
+    .widget {
+        margin: 15px;
+        background-color: blue;
+    }
+
+    #container1 {
+        margin: 15px;
+        background-color: green;
+    }
+</style>
+<script src="~/Scripts/jquery.hoverIntent.js"></script>
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+<div class="row">
+    <div class="col-md-6">
+        <div id="toggleInput"><input type="checkbox" /> Toggle All</div>
+        <ul id="items">
+            <li><input type="checkbox" /> <div class="content">Testing 1</div></li>
+            <li><input type="checkbox" /> <div class="content">Testing 2</div></li>
+            <li><input type="checkbox" /> <div class="content">Testing 3</div></li>
+            <li><input type="checkbox" /> <div class="content">Testing 4</div></li>
+            <li><input type="checkbox" /> <div class="content">Testing 5</div></li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <div id="container">
+            <ul id="contacts"></ul>
+        </div>
+        <button id="btnRefresh" class="btn btn-info">Refresh</button>
+    </div>
+</div>
+<form class="form-inline">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="attendee-name">Attendee Name</label>
+            <input id="attendee-name" type="text" class="form-control"></input>
+            <button id="register" data-target="#attendee-name" class="btn btn-info">Register</button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="shapes">
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+</form>
+<form class="form-inline">
+    <div class="row">
+        <div class="col-md-6">
+            <input id="age" type="text" class="form-control" />
+            <input type="submit" value="Validate" class="btn btn-info" />
+        </div>
+        <div class="col-md-6">
+            <ul id="items1">
+                <li><input type="checkbox" class="checkbox" /> <div class="content">Testing 1</div></li>
+                <li><input type="checkbox" class="checkbox" /> <div class="content">Testing 2</div></li>
+                <li><input type="checkbox" class="checkbox" /> <div class="content">Testing 3</div></li>
+                <li><input type="checkbox" class="checkbox" /> <div class="content">Testing 4</div></li>
+                <li><input type="checkbox" class="checkbox" /> <div class="content">Testing 5</div></li>
+            </ul>
+            <button id="invert" class="btn btn-success">Invert All</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="container1">
+                <div class="widget">
+                    <div class="content1">placeholder</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+    </div>
+</form>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var addresses = $('address')
+            //alert($(addresses[1]).val());
+            $('#toggleInput input').on("click", function (e) {
+                $("#items").find("input").prop("checked", $(this).prop("checked"));
+            });
+
+            var $container = $("#container"),
+                $contacts = $("#contacts"),
+                contacts = [{ name: "Yoda Doe", birthday: "4/4/2013" }, { name: "Yoda Le", birthday: "4/4/2013" }];
+
+            var addContacts = function (contacts) {
+                var list = $contacts.detach();
+                $.each(contacts, function (index, contact) {
+                    $("<li />", { html: contact.name + contact.birthday }).data("birthday", contact.birthday).appendTo($contacts);
+                });
+                $container.append(list);
+            }
+
+            var initialize = function () {
+                $("#container").on("click", "#contacts li", function () {
+                    alert("Birthday: " + $(this).data("birthday"));
+                });
+
+                $('#btnRefresh').on("click", function () {
+                    addContacts([{ name: "Yoda Doe", birthday: "4/4/2013" }]);
+                });
+            };
+
+            initialize();
+            addContacts(contacts);
+
+            var Conference = function (name) {
+                this.name = name;
+                this.attendees = [];
+            };
+
+            Conference.prototype.register = function (e) {
+                var $attendee = $($(e.target).data("target"));
+
+                this.attendees.push($attendee.val());
+
+                alert("Thanks for registering for " + this.name + ". " +
+                    "There are " + this.attendees.length +
+                    " registered thus far.");
+
+                $attendee.val("");
+                e.preventDefault();
+            };
+
+            var conference = new Conference("JavaScript Code Camp");
+
+            $("#register").on("click", $.proxy(conference.register, conference));
+            //$("#shapes").on("click", ".circle", function (e) {
+            //    $("<div class='circle dynamic'></div>").appendTo("#shapes");
+            //});
+
+            $("#age").on("keypress", function (e) {
+                var char = String.fromCharCode(e.which);
+                if (!~"0123456789".indexOf(char)) {
+                    return false;
+                }
+            });
+
+            //Un-intenional Bug
+
+            //$("#shapes").on("click", function () {
+            //    $(this).css({
+            //        backgroundColor: '#' +
+            //            Math.floor(Math.random() * 16777215).toString(16)
+            //    });
+            //});
+
+            //$("#shapes").on("click dblclick", ".circle", function (e) {
+            //    $(this).clone(true).appendTo("#shapes");
+            //    if (e.type === "dblclick") {
+            //        $(e.delegateTarget).off("click");
+            //    }
+            //});
+
+            $("#shapes").on("click", function () {
+                $(this).css({
+                    backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
+                });
+            });
+
+            $("#shapes").on("click.shape dblclick", ".circle", function (e) {
+                $(this).clone(true).appendTo("#shapes");
+                if (e.type === "dblclick") {
+                    $(e.delegateTarget).off("click.shape");
+                }
+            });
+
+            $("#items1").find("input").on("click", function () {
+                $(this).closest("li").toggleClass("highlight");
+                $(this).closest("li").find(".content").html(function (i, html) { return html + "."; });
+            });
+
+            //$("#items1").on("click", "input", function (e) {
+            //    $(this).closest("li").find(".content").html(function (i, html) { return html + "."; });
+            //});
+
+            $("#invert").on("click", function (e) {
+                $("#items1 input:checkbox")
+                    .trigger("click")
+                    .fadeOut("fast").fadeIn("slow");
+                e.preventDefault();
+            });
+
+            var app = {
+                name: "Fixing Common jQuery Bugs",
+                handler: function (e) {
+                    var $elem = $(e.currentTarget);
+                    $elem.find(".content1").text(this.name);
+                }
+            };
+
+            $("#container1").on("click", "> .widget", $.proxy(app.handler, app));
+            //$("#container1").on("click", "> .widget", app.handler);
+        })
+    </script>
+}
