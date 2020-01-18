@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.102
+VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Research-Lab", "Research-Lab\Research-Lab.csproj", "{E5103511-2673-421E-8322-2BB265047C35}"
 EndProject
@@ -32,8 +32,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.OptimizationE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.Data", "..\..\..\..\..\RouteDelivery\RouteDelivery.Data\RouteDelivery.Data.csproj", "{F45001A1-EB21-4412-94E7-B52C07FC11FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "..\..\..\..\..\PluralSight\EmberByRobConery\Ember-ASP.NET-MVC-Pluralsight-master\ember-user-admin-master\Web.csproj", "{59BD70C9-777C-4B9C-AB17-4F6890387733}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{871C5C6F-DCA2-45D6-9BE8-72EAB4DCDD7D}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\..\..\PluralSight\EmberByRobConery\Ember-ASP.NET-MVC-Pluralsight-master\ember-user-admin-master\.nuget\NuGet.Config = ..\..\..\..\..\PluralSight\EmberByRobConery\Ember-ASP.NET-MVC-Pluralsight-master\ember-user-admin-master\.nuget\NuGet.Config
@@ -53,17 +51,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Data", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.DbMigrations", "..\..\..\..\..\PluralSight\OAuthFilipEkberg\2-oauth-secure-asp-dot-net-api-m2-exercise-files\SocialNetwork.DbMigrations\SocialNetwork.DbMigrations.csproj", "{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.API", "ImageGallery.API\ImageGallery.API.csproj", "{B2FC365F-5893-4561-92B2-83751C507326}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Model", "ImageGallery.Model\ImageGallery.Model.csproj", "{B320A5EF-556C-459D-A73E-B17FCA0A5AFD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Client", "ImageGallery.Client\ImageGallery.Client.csproj", "{230C64A8-E263-4729-8839-1232AC8D91A1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marvin.IDP", "Marvin.IDP\Marvin.IDP.csproj", "{E5B7E398-3C9F-4B24-AB1F-1681F8584604}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureADAuth", "AzureADAuth\AzureADAuth.csproj", "{69E32390-F640-4FF5-8087-C56EE11D313A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcClient", "MvcClient\MvcClient.csproj", "{12054BD9-E513-4741-BEAC-B95F39BD544A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{59BD70C9-777C-4B9C-AB17-4F6890387733}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3236D44B-9A6C-4696-9678-BB846183D501}"
+	ProjectSection(SolutionItems) = preProject
+		Web\.nuget\NuGet.Config = Web\.nuget\NuGet.Config
+		Web\.nuget\NuGet.exe = Web\.nuget\NuGet.exe
+		Web\.nuget\NuGet.targets = Web\.nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureADAuth", "AzureADAuth\AzureADAuth.csproj", "{8D514153-2B01-4615-B2B0-860496FB9B76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.API", "ImageGallery.API\ImageGallery.API.csproj", "{12D19FC3-5E8B-4502-BB01-FDEF849144C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Client", "ImageGallery.Client\ImageGallery.Client.csproj", "{41C0E910-E884-4753-8238-2FCCA10B458C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Model", "ImageGallery.Model\ImageGallery.Model.csproj", "{F490F249-44B1-4A5D-AFFC-272420B65995}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marvin.IDP", "Marvin.IDP\Marvin.IDP.csproj", "{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,10 +122,6 @@ Global
 		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A15E2E6B-AD26-42D9-8023-C78334AE0C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A15E2E6B-AD26-42D9-8023-C78334AE0C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A15E2E6B-AD26-42D9-8023-C78334AE0C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -143,30 +146,34 @@ Global
 		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2FC365F-5893-4561-92B2-83751C507326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2FC365F-5893-4561-92B2-83751C507326}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2FC365F-5893-4561-92B2-83751C507326}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2FC365F-5893-4561-92B2-83751C507326}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B320A5EF-556C-459D-A73E-B17FCA0A5AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B320A5EF-556C-459D-A73E-B17FCA0A5AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B320A5EF-556C-459D-A73E-B17FCA0A5AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B320A5EF-556C-459D-A73E-B17FCA0A5AFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{230C64A8-E263-4729-8839-1232AC8D91A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{230C64A8-E263-4729-8839-1232AC8D91A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{230C64A8-E263-4729-8839-1232AC8D91A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{230C64A8-E263-4729-8839-1232AC8D91A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5B7E398-3C9F-4B24-AB1F-1681F8584604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5B7E398-3C9F-4B24-AB1F-1681F8584604}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5B7E398-3C9F-4B24-AB1F-1681F8584604}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5B7E398-3C9F-4B24-AB1F-1681F8584604}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69E32390-F640-4FF5-8087-C56EE11D313A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69E32390-F640-4FF5-8087-C56EE11D313A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69E32390-F640-4FF5-8087-C56EE11D313A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69E32390-F640-4FF5-8087-C56EE11D313A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12054BD9-E513-4741-BEAC-B95F39BD544A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12054BD9-E513-4741-BEAC-B95F39BD544A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12054BD9-E513-4741-BEAC-B95F39BD544A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12054BD9-E513-4741-BEAC-B95F39BD544A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59BD70C9-777C-4B9C-AB17-4F6890387733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D514153-2B01-4615-B2B0-860496FB9B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D514153-2B01-4615-B2B0-860496FB9B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D514153-2B01-4615-B2B0-860496FB9B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D514153-2B01-4615-B2B0-860496FB9B76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D19FC3-5E8B-4502-BB01-FDEF849144C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D19FC3-5E8B-4502-BB01-FDEF849144C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D19FC3-5E8B-4502-BB01-FDEF849144C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D19FC3-5E8B-4502-BB01-FDEF849144C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41C0E910-E884-4753-8238-2FCCA10B458C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C0E910-E884-4753-8238-2FCCA10B458C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41C0E910-E884-4753-8238-2FCCA10B458C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41C0E910-E884-4753-8238-2FCCA10B458C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F490F249-44B1-4A5D-AFFC-272420B65995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F490F249-44B1-4A5D-AFFC-272420B65995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F490F249-44B1-4A5D-AFFC-272420B65995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F490F249-44B1-4A5D-AFFC-272420B65995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

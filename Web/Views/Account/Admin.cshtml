@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Account Administration";
+}
+
+<div id="user-admin-app"></div>
+
+
+<script src="~/Scripts/vendor/ember/handlebars-1.1.2.js"></script>
+<script src="~/Scripts/vendor/ember/ember-1.4.0.js"></script>
+<script src="~/Scripts/vendor/ember/ember-data.js"></script>
+<script src="~/Scripts/vendor/md5.js"></script>
+<script src="~/Scripts/vendor/moment/moment.js"></script>
+
+
+<script type="text/x-handlebars">
+    
+    {{outlet}}
+
+</script>
+
+<script type="text/x-handlebars" id="index">
+    <h1>User Administration</h1>
+    <hr />
+    <p>
+        Select what you want to do from below...
+    </p>
+    <ul>
+        <li>{{#link-to 'users'}}User Administration{{/link-to}}</li>
+        <li><a href="#">Roles</a></li>
+        <li><a href="#">Logs</a></li>
+    </ul>
+</script>
+
+<script type="text/x-handlebars" id="users">
+
+    <h1>Last 20 Users</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>User</th>
+            <th>Name</th>
+            <th>Member Since</th>
+        </tr>
+        <tr>
+            <td><img src="https://avatars.githubuserscontent.com/u/78586?" width="120px" /></td>
+            <td>{{#link-to 'user' 'bloopy'}}Rob Conery{{/link-to}}</td>
+            <td>12 months ago</td>
+        </tr>
+    </table>
+
+</script>
+
+<script type="text/x-handlebars" id="user">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="well">
+                <p class="text-center">
+                    <img src="https://avatars.githubusercontent.com/u/78586?" style="width:140px" />
+                </p>
+                <h4>Rob Conery</h4>
+                <hr />
+                <table calss="table table-striped">
+                    <tr><td>Username:</td><td>Rob Conery</td></tr>
+                    <tr><td>Twitter:</td><td>@@robconery</td></tr>
+                    <tr><td>Bio: </td><td>Lorem Ispum</td></tr>
+                    <tr><td>Email: </td><td>rob@tekpub.com</td></tr>
+                </table>
+                <p>
+                    {{#link-to "users"}}Back{{/link-to}}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            {{outlet}}
+
+        </div>
+    </div>
+</script>
+
+<script type="text/x-handlebars" id="user/index">
+    <ol class="breadcrumb">
+        <li>{{#link-to 'index'}}Admin{{/link-to}}</li>
+        <li>{{#link-to 'users'}}Users{{/link-to}}</li>
+        <li class="active">Rob Conery</li>
+    </ol>
+    <hr />
+    <h3>Basic Information</h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="UserName">User Name</label>
+            <div class="col-md-10">
+                <input class="form-control" data-val="true" data-val-required="The User name field is required." id="UserName" name="UserName" />
+            </div>
+        </div>
+    </form>
+    <!--Fill in the rest later-->
+    <!--<hr />
+    <h3>Change Password</h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="UserName">Old Password</label>
+            <div class="col-md-10">
+                <input class="form-control" data-val="true" data-val-required="The User name field is required." id="UserName" name="UserName" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Email">New Password</label>
+            <div class="col-md-10">
+                <input class="form-control" data-val="true" data-val-required="New Password required." id=""
+            </div>
+        </div>
+    </form>-->
+    <hr />
+    <h3>Roles</h3>
+    <form class="form-horizontal">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" /> Remember Me
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" /> Role 1
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" /> Role 2
+            </label>
+        </div>
+    </form>
+</script>
+
+<script type="text/x-handlebars" id="user/addnote">
+
+</script>
+
+<script>
+    UserAdmin = Ember.Application.create({
+        rootElement: '#user-admin-app',
+        LOG_TRANSITIONS : true
+    });
+
+    /*UserAdmin.ApplicationAdapter = DS.RESTAdapter.extend({
+        host: "",
+        namespace: "api"
+    }); */
+
+    UserAdmin.Router.map(function () {
+        this.resource("users");
+        this.resource("user", { path: "users/:username" }, function () {
+            this.route("editinfo", { path: "edit" });
+            this.route("changepassword", { path: "change-password" });
+            this.route("changeroles", { path: "edit-roles" });
+        });
+    });
+</script>

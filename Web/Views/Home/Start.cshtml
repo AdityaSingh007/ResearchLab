@@ -1,0 +1,183 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "DUA";
+    Layout = null;
+}
+
+@*StyleSheet reference*@
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+@*Ember and Jquery Reference*@
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/ember.min.js"></script>
+<script src="~/Scripts/handlebars.min.js"></script>
+<script src="~/Scripts/ember-template-compiler.js"></script>
+<script src="~/Scripts/ember.debug.js"></script>
+<script src="~/Scripts/vendor/bootstrap/bootstrap.min.js"></script>
+
+@*Initial Load Template*@
+<div class="container" id="DUA-App" style="padding-top:10px">
+</div>
+
+@*Application Template*@
+<script type="text/x-handlebars" data-template-name="application">
+    <nav class="navbar navbar-inverse nav-pills">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    DUA
+                </button>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav nav-pills">
+                    <li>
+                        {{#link-to 'engagements'}}Engagement{{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'report'}}Report{{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'support'}}Support{{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'admin'}}Admin{{/link-to}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {{outlet}}
+</script>
+
+@*Engagements Template*@
+<script type="text/x-handlebars" data-template-name="engagements">
+    <div class="well-lg">
+        <div class="row">
+            <div class="col-md-3 list-group">
+                {{#link-to 'MyEngagements'}}<span class="list-group-item active"><i class="glyphicon glyphicon-chevron-right pull-right"></i>My Engagements</span>{{/link-to}}
+                {{#link-to 'CreateEditEngagements'}}<span class="list-group-item"><i class="glyphicon glyphicon-chevron-right pull-right"></i>Create/Edit Engagements</span>{{/link-to}}
+            </div>
+            <div class="col-md-9">
+                {{outlet}}
+            </div>
+        </div>
+    </div>
+</script>
+
+@*Reports Template*@
+<script type="text/x-handlebars" data-template-name="report">
+    <div class="well-lg">
+        <div class="row">
+            <p>Reports Page !!!</p>
+        </div>
+    </div>
+</script>
+
+@*Support Template*@
+<script type="text/x-handlebars" data-template-name="support">
+    <div class="well-lg">
+        <div class="row">
+            <p>Support Page !!!</p>
+        </div>
+    </div>
+</script>
+
+@*Admin Template*@
+<script type="text/x-handlebars" data-template-name="admin">
+    <div class="well-lg">
+        <div class="row">
+            <p>Admin Page !!!</p>
+        </div>
+    </div>
+</script>
+
+@*My Engagements Template*@
+<script type="text/x-handlebars" id="MyEngagements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <p>My Engagements Page!!!</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+@*Create/Edit Engagements Template*@
+<script type="text/x-handlebars" id="CreateEditEngagements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <p>Create/Edit Engagements Page!!!</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+
+    var userInformation = [
+        { login: "robconery", name: "Rob Conery", isAdmin: true }
+    ];
+
+    window.DUA = Ember.Application.create({
+        rootElement: "#DUA-App",
+        LOG_TRANSITIONS: true
+    });
+
+    DUA.ApplicationRoute = Ember.Route.extend({
+        model: function () {
+            return userInformation;
+        }
+    });
+
+    DUA.IndexRoute = Ember.Route.extend({
+        model: function () {
+            this.transitionTo('engagements');
+        }
+    });
+
+    DUA.Router.map(function () {
+        this.resource('engagements', function () {
+            this.resource('MyEngagements');
+            this.resource('CreateEditEngagements');
+        });
+        this.resource('admin');
+        this.resource('report');
+        this.resource('support');
+    });
+
+    DUA.EngagementsIndexRoute = Ember.Route.extend({
+        model: function () {
+            this.transitionTo('MyEngagements');
+        }
+    });
+
+    DUA.AdminRoute = Ember.Route.extend({
+        model: function () {
+        }
+    });
+
+    DUA.SupportRoute = Ember.Route.extend({
+        model: function () {
+        }
+    });
+
+    DUA.ReportRoute = Ember.Route.extend({
+        model: function () {
+        }
+    });
+
+    DUA.MyEngagements = Ember.Route.extend({
+        model: function () {
+        }
+    });
+    DUA.CreateEditEngagements = Ember.Route.extend({
+        model: function () {
+        }
+    });
+</script>

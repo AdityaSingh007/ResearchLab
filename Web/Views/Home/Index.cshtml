@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+    <h1>Your Aura, Stimulated</h1>
+    <p class="lead">A festival of glittery power, surrounding you...</p>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <button id="btnCORS" class="btn btn-primary">Test CORS</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p id="response"> Response:</p>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#btnCORS').click(function () {
+            $.getJSON('http://localhost:58360/api/camps', function (response) {
+                $.each(response, function (index, event) {
+                    $('#response').text(event.name);
+                });
+                
+            });
+        });
+    });
+</script>
