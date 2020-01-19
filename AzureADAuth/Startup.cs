@@ -35,6 +35,8 @@ namespace AzureADAuth
             // register an IHttpContextAccessor so we can access the current
             // HttpContext in services by injecting it
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //Add below to enable use of session variable
             services.AddSession();
 
 
