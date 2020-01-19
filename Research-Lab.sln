@@ -24,14 +24,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamper.Data", "CodeCamp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamper.Model", "CodeCamper.Model\CodeCamper.Model.csproj", "{31354426-6761-4C7C-8F37-FBE4226943A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.MVC", "..\..\..\..\..\RouteDelivery\RouteDelivery\RouteDelivery.MVC.csproj", "{0F91676B-9C52-427E-B978-BB3E083E897B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.Models", "..\..\..\..\..\RouteDelivery\RouteDelivery.Models\RouteDelivery.Models.csproj", "{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.OptimizationEngine", "..\..\..\..\..\RouteDelivery\RouteDelivery.OptimizationEngine\RouteDelivery.OptimizationEngine.csproj", "{83F07226-4DDA-49F7-867C-B904B58EB52A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.Data", "..\..\..\..\..\RouteDelivery\RouteDelivery.Data\RouteDelivery.Data.csproj", "{F45001A1-EB21-4412-94E7-B52C07FC11FD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{871C5C6F-DCA2-45D6-9BE8-72EAB4DCDD7D}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\..\..\PluralSight\EmberByRobConery\Ember-ASP.NET-MVC-Pluralsight-master\ember-user-admin-master\.nuget\NuGet.Config = ..\..\..\..\..\PluralSight\EmberByRobConery\Ember-ASP.NET-MVC-Pluralsight-master\ember-user-admin-master\.nuget\NuGet.Config
@@ -46,10 +38,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheCodeCamp", "TheCodeCamp\TheCodeCamp.csproj", "{FC2D09F9-EF88-4961-856A-D2760030A723}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthServer", "OAuthServer\OAuthServer.csproj", "{3E006A94-0BBA-4753-9D49-AC47205E096E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Data", "..\..\..\..\..\PluralSight\OAuthFilipEkberg\2-oauth-secure-asp-dot-net-api-m2-exercise-files\SocialNetwork.Data\SocialNetwork.Data.csproj", "{F1821BD7-9C27-4137-930B-EAAEC1572885}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.DbMigrations", "..\..\..\..\..\PluralSight\OAuthFilipEkberg\2-oauth-secure-asp-dot-net-api-m2-exercise-files\SocialNetwork.DbMigrations\SocialNetwork.DbMigrations.csproj", "{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcClient", "MvcClient\MvcClient.csproj", "{12054BD9-E513-4741-BEAC-B95F39BD544A}"
 EndProject
@@ -71,6 +59,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Model", "ImageGallery.Model\ImageGallery.Model.csproj", "{F490F249-44B1-4A5D-AFFC-272420B65995}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marvin.IDP", "Marvin.IDP\Marvin.IDP.csproj", "{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Data", "SocialNetwork.Data\SocialNetwork.Data.csproj", "{F1821BD7-9C27-4137-930B-EAAEC1572885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.DbMigrations", "SocialNetwork.DbMigration\SocialNetwork.DbMigrations.csproj", "{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.MVC", "RouteDelivery.MVC\RouteDelivery.MVC.csproj", "{0F91676B-9C52-427E-B978-BB3E083E897B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.Data", "RouteDelivery.Data\RouteDelivery.Data.csproj", "{F45001A1-EB21-4412-94E7-B52C07FC11FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.OptimizationEngine", "RouteDelivery.OptimizationEngine\RouteDelivery.OptimizationEngine.csproj", "{83F07226-4DDA-49F7-867C-B904B58EB52A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.Models", "RouteDelivery.Models\RouteDelivery.Models.csproj", "{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,22 +106,6 @@ Global
 		{31354426-6761-4C7C-8F37-FBE4226943A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31354426-6761-4C7C-8F37-FBE4226943A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31354426-6761-4C7C-8F37-FBE4226943A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A15E2E6B-AD26-42D9-8023-C78334AE0C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A15E2E6B-AD26-42D9-8023-C78334AE0C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A15E2E6B-AD26-42D9-8023-C78334AE0C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -138,14 +122,6 @@ Global
 		{3E006A94-0BBA-4753-9D49-AC47205E096E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E006A94-0BBA-4753-9D49-AC47205E096E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E006A94-0BBA-4753-9D49-AC47205E096E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12054BD9-E513-4741-BEAC-B95F39BD544A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12054BD9-E513-4741-BEAC-B95F39BD544A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12054BD9-E513-4741-BEAC-B95F39BD544A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -174,6 +150,30 @@ Global
 		{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81BDF863-80DC-4C69-9E43-F5B6B102C8F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1821BD7-9C27-4137-930B-EAAEC1572885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F91676B-9C52-427E-B978-BB3E083E897B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F91676B-9C52-427E-B978-BB3E083E897B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F91676B-9C52-427E-B978-BB3E083E897B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F91676B-9C52-427E-B978-BB3E083E897B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -346,12 +346,6 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\PluralSight\OAuthFilipEkberg\2-oauth-secure-asp-dot-net-api-m2-exercise-files\SocialNetwork.Data\SocialNetwork.Data.csproj">
-      <Project>{f1821bd7-9c27-4137-930b-eaaec1572885}</Project>
-      <Name>SocialNetwork.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
