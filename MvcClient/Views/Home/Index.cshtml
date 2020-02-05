@@ -1,9 +1,64 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://alcdn.msauth.net/lib/1.2.0/js/msal.js"></script>
 <div class="jumbotron">
     <h1>ASP.NET MVC Client App</h1>
     <p class="lead">Application will be used to call all api's built in mvc framework</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <button id="btnAuth" class="btn btn-success">Authorize</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnAuth').click(function () {
+            const msalConfig = {
+                auth: {
+                    clientId: '1e4f9c1e-9a8b-4fc6-a128-5c91050bc96f',
+                    authority: 'https://login.microsoftonline.com/71f2e7b5-db7d-4db7-9b7d-dc4fbc5cb0aa'
+                }
+            };
+
+            const msalInstance = new Msal.UserAgentApplication(msalConfig);
+
+            var loginRequest = {
+                /*scopes: ["user.read", "mail.send", "Tasks.Read"]*/ // optional Array<string>
+                scopes: ["https://graph.microsoft.com/Tasks.ReadWrite"]
+            };
+
+            msalInstance.loginPopup(loginRequest)
+                .then(response => {
+                    // handle response
+                    console.log('loginResponse: ');
+                    console.log(response);
+                    var tokenResponse = '';
+                    msalInstance.acquireTokenSilent(loginRequest).then(function (response) {
+                        tokenResponse = response;
+                        console.log('TokenResponse: ');
+                        console.log(response);
+                    }).catch(function (error) {
+                        //Acquire token silent failure, and send an interactive request
+                        if (error.errorMessage.indexOf("interaction_required") !== -1) {
+                            msalInstance.acquireTokenPopup(loginRequest).then(function (accessTokenResponse) {
+                                // Acquire token interactive success
+                                console.log('TokenResponseInteractive: ');
+                                console.log(accessTokenResponse);
+                            }).catch(function (error) {
+                                // Acquire token interactive failure
+                                console.log(error);
+                            });
+                        }
+                        console.log(error);
+                    });
+                })
+                .catch(err => {
+                    // handle error
+                    console.log(err);
+                });
+        });
+    });
+</script>
