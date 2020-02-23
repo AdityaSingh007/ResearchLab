@@ -85,20 +85,6 @@ namespace AzureADAuth.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -214,11 +200,40 @@ namespace AzureADAuth.Controllers
             catch (Exception ex)
             {
 
-                return Json(new { data = new { errorDescription = ex.InnerException != null ? ex.InnerException.Message : ex.Message },
-                    status = HttpStatusCode.InternalServerError });
+                return Json(new
+                {
+                    data = new { errorDescription = ex.InnerException != null ? ex.InnerException.Message : ex.Message },
+                    status = HttpStatusCode.InternalServerError
+                });
             }
 
 
+        }
+
+        [Route("AssignRole")]
+        [Authorize]
+        public async Task<IActionResult> AssignRole()
+        {
+            var roleAssignmentModel = new RoleAssisgnmentModel()
+            {
+                SubscriptionId = "47ca3602-b986-46de-a99a-e473c26bd588",
+                ResourceGroupName = "AdityaAzureRG",
+                StorageAccountName = "researchstorageacct",
+                ContainerName = "research",
+                RoleId = "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1",
+                ServicePrincipalObjectId = "04f300cc-5632-4820-8fd2-9d36e7efd020",
+                RoleAssignmentName = Guid.NewGuid().ToString()
+            };
+
+            var roleAssignmentService = new RoleAssignment(roleAssignmentModel);
+
+            var currentContext = _httpContextAccessor.HttpContext;
+            var accesToken = await currentContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            var httpResponseMessage = await roleAssignmentService.AssignRole(accesToken);
+            var responeFromazureAPi = await httpResponseMessage.Content.ReadAsStringAsync();
+            var deserializeResponse = JsonConvert.DeserializeObject(responeFromazureAPi).ToString();
+
+            return View("AssignRole", deserializeResponse);
         }
     }
 }

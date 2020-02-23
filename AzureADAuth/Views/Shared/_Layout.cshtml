@@ -18,6 +18,8 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li role="presentation"><a href="/userinformation">User Information</a></li>
+                        <li role="presentation"><a asp-controller="Image" asp-action="Index">Images</a></li>
+                        <li role="presentation"><a asp-controller="Home" asp-action="AssignRole">TestRoleAssignment</a></li>
                         <li role="presentation" class="active">
                             <form method="post" asp-controller="Auth" asp-action="SignOut">
                                 <button type="submit" class="btn btn-primary">Sign Out</button>

@@ -20,5 +20,6 @@ namespace MvcClient.App_Start
         public static readonly string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
         public static readonly string scopes = "openid profile offline_access";
         public static readonly string microsoftGraphScope = "https://graph.microsoft.com";
+        public static readonly string storageAccountScope = "https://storage.azure.com/user_impersonation";
     }
 }

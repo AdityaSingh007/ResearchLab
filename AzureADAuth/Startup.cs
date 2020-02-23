@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AzureADAuth.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -36,6 +37,8 @@ namespace AzureADAuth
             // HttpContext in services by injecting it
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddSingleton<ImageStore>();
+
             //Add below to enable use of session variable
             services.AddSession();
 
@@ -52,9 +55,11 @@ namespace AzureADAuth
                 options.ClientSecret = "d8z@UAOHE=Vmx-WuTmN3d24tJt/Y?Fh[";
                 options.ResponseType = "code id_token";
                 options.Resource = "2716d103-ccb8-4499-9471-df3becb40f94";
+                options.Resource = "https://storage.azure.com";
+                options.Resource = "https://management.azure.com";
                 options.Scope.Add("offline_access");
-                options.Scope.Add("roles");
-                options.Scope.Add("ImageGalleryApi.Admin");
+                options.Scope.Add("https://storage.azure.com/user_impersonation");
+                options.Scope.Add("https://management.azure.com/user_impersonation");
                 options.CallbackPath = "/auth/signin-callback";
                 options.SignedOutRedirectUri = "http://localhost:54295";
                 options.SaveTokens = true;
