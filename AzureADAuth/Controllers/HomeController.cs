@@ -78,8 +78,8 @@ namespace AzureADAuth.Controllers
                 _httpClient.SetBearerToken(accessToken);
             }
 
-            var response = _httpClient.GetAsync("api/Azure").Result.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<string>(response.Result);
+            var response = _httpClient.GetAsync("api/Azure").Result.ReasonPhrase;
+            //var result = JsonConvert.DeserializeObject<string>(response.Result.ReasonPhrase);
 
 
             return View();

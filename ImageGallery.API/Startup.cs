@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ImageGallery.API
 {
@@ -28,6 +29,8 @@ namespace ImageGallery.API
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.AddMvc();
 
             services.AddAuthorization(authorizationOptions =>
@@ -40,6 +43,15 @@ namespace ImageGallery.API
                         policyBuilder.AddRequirements(
                                 new MustOwnImageRequirement());
                     });
+
+                authorizationOptions.AddPolicy(
+                    "UserMustBeAnAdmin",
+                    policyBuilder =>
+                {
+                    policyBuilder.RequireAuthenticatedUser();
+                    policyBuilder.AddRequirements(
+                        new IsUserAdminRequirement());
+                });
 
             });
 
@@ -81,6 +93,7 @@ namespace ImageGallery.API
             services.AddScoped<IGalleryRepository, GalleryRepository>();
             //register custom policy Handler
             services.AddScoped<IAuthorizationHandler, MustOwnImageHandler>();
+            services.AddScoped<IAuthorizationHandler, IsUserAdminHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

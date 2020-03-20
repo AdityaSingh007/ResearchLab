@@ -16,10 +16,12 @@ namespace MvcClient.App_Start
         public static readonly string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:postLogoutRedirectUri"];
         public static readonly string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
         public static readonly string serviceResourceID = ConfigurationManager.AppSettings["ida:serviceResourceID"];
+        public static readonly string azureManagementResourceID = "https://management.azure.com";
 
         public static readonly string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
         public static readonly string scopes = "openid profile offline_access";
         public static readonly string microsoftGraphScope = "https://graph.microsoft.com";
         public static readonly string storageAccountScope = "https://storage.azure.com/user_impersonation";
+        public static readonly string azureManagementScope = "https://management.azure.com/user_impersonation";
     }
 }

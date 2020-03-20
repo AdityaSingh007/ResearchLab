@@ -36,13 +36,15 @@ namespace RestFullServices
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            /***<!--Configuration for API to use identity server authentication-->***/
             //app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions()
             //{
             //    Authority = "http://localhost:58457"
             //});
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
+            /***<!--Configuration for API to use Azure AD for authorization-->***/
             var azureADBearerAuthOptions = new WindowsAzureActiveDirectoryBearerAuthenticationOptions
             {
                 Tenant = AuthenticationConfig.tenant

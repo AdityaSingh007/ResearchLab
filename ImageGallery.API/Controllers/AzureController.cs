@@ -14,7 +14,7 @@ namespace ImageGallery.API.Controllers
     public class AzureController : Controller
     {
         [HttpGet()]
-        [Authorize]
+        [Authorize(Policy = "UserMustBeAnAdmin")]
         public IActionResult GetAzure()
         {
             var signedInUser = User.Identities;

@@ -54,12 +54,12 @@ namespace AzureADAuth
                 options.ClientId = "c3f6e601-6398-45cf-b392-39d7c28bc110";
                 options.ClientSecret = "d8z@UAOHE=Vmx-WuTmN3d24tJt/Y?Fh[";
                 options.ResponseType = "code id_token";
-                options.Resource = "2716d103-ccb8-4499-9471-df3becb40f94";
-                options.Resource = "https://storage.azure.com";
+                //options.Resource = "2716d103-ccb8-4499-9471-df3becb40f94";
                 options.Resource = "https://management.azure.com";
+                options.Scope.Add("ImageGalleryApi.Admin");
                 options.Scope.Add("offline_access");
-                options.Scope.Add("https://storage.azure.com/user_impersonation");
-                options.Scope.Add("https://management.azure.com/user_impersonation");
+                //options.Scope.Add("https://storage.azure.com/user_impersonation");
+                options.Scope.Add("https://management.azure.com/.default");
                 options.CallbackPath = "/auth/signin-callback";
                 options.SignedOutRedirectUri = "http://localhost:54295";
                 options.SaveTokens = true;
