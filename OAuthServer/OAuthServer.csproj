@@ -151,6 +151,10 @@
       <Project>{E5103511-2673-421E-8322-2BB265047C35}</Project>
       <Name>Research-Lab</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SocialNetwork.Data\SocialNetwork.Data.csproj">
+      <Project>{F1821BD7-9C27-4137-930B-EAAEC1572885}</Project>
+      <Name>SocialNetwork.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
