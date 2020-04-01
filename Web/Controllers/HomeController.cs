@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Thinktecture.IdentityModel.Clients;
+using Web.Models;
 
 namespace Web.Controllers
 {
@@ -169,6 +170,12 @@ namespace Web.Controllers
         {
             Thread.Sleep(5000);
             return Json("Success");
+        }
+
+        public async Task<ActionResult> UseMicrosoftAuthenticationLibrary()
+        {
+            var tokenFromLibrary = await MicrosoftAuthenticationManager.AcquireToken();
+            return View();
         }
 
     }

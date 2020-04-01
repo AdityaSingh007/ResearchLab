@@ -35,7 +35,69 @@ namespace OAuthServer
                         new Claim(Constants.ClaimTypes.Name,"filip ekberg"),
                         new Claim(Constants.ClaimTypes.Role,"Admin")
                     }
+                },
+                 new InMemoryUser
+            {
+                Username = "Kevin",
+                Password = "secret",
+                Subject = "1",
+
+                Claims = new[]
+                {
+                    new Claim(Constants.ClaimTypes.GivenName, "Kevin"),
+                    new Claim(Constants.ClaimTypes.FamilyName, "Dockx"),
+                    new Claim(Constants.ClaimTypes.Role, "WebReadUser"),
+                    new Claim(Constants.ClaimTypes.Role, "WebWriteUser"),
+                    new Claim(Constants.ClaimTypes.Role, "MobileReadUser"),
+                    new Claim(Constants.ClaimTypes.Role, "MobileWriteUser")
                 }
+            }
+            ,
+            new InMemoryUser
+            {
+                Username = "Sven",
+                Password = "secret",
+                Subject = "2",
+
+                Claims = new[]
+                {
+                    new Claim(Constants.ClaimTypes.GivenName, "Sven"),
+                    new Claim(Constants.ClaimTypes.FamilyName, "Vercauteren"),
+                    new Claim(Constants.ClaimTypes.Role, "WebReadUser"),
+                    new Claim(Constants.ClaimTypes.Role, "MobileReadUser")
+                }
+            },
+
+            new InMemoryUser
+            {
+                Username = "Nils",
+                Password = "secret",
+                Subject = "3",
+
+                Claims = new[]
+                {
+                    new Claim(Constants.ClaimTypes.GivenName, "Nils"),
+                    new Claim(Constants.ClaimTypes.FamilyName, "Missorten"),
+                    new Claim(Constants.ClaimTypes.Role, "WebWriteUser"),
+                    new Claim(Constants.ClaimTypes.Role, "MobileWriteUser")
+                }
+            },
+
+            new InMemoryUser
+            {
+                Username = "Kenneth",
+                Password = "secret",
+                Subject = "4",
+
+                Claims = new[]
+                {
+                    new Claim(Constants.ClaimTypes.GivenName, "Kenneth"),
+                    new Claim(Constants.ClaimTypes.FamilyName, "Mills"),
+                    new Claim(Constants.ClaimTypes.Role, "WebReadUser"),
+                    new Claim(Constants.ClaimTypes.Role, "WebWriteUser")
+                }
+
+            }
             };
         }
 
@@ -55,7 +117,20 @@ namespace OAuthServer
                 {
                     Name="Role",
                     DisplayName="Your Role(s)"
-                }
+                },
+                 new Scope
+                    {
+                        Name = "expensetrackerapi",
+                        DisplayName = "ExpenseTracker API Scope",
+                        Type = ScopeType.Resource,
+                        Emphasize = false,
+                         Enabled = true,
+                          Claims = new List<ScopeClaim>
+                        {
+                            new ScopeClaim("role")
+                        }
+
+                    }
             };
         }
 
@@ -131,6 +206,44 @@ namespace OAuthServer
                         "http://localhost:41109"
                     },
                     Enabled=true
+                },
+                new Client
+                {
+                     Enabled = true,
+                     ClientId = "expensetracker",
+                     ClientName = "ExpenseTracker MVC Client (Auth Code Flow)",
+                     Flow = Flows.AuthorizationCode,
+                     RequireConsent = true,  
+      
+                    // redirect = URI of MVC app
+                    RedirectUris = new List<string>
+                    {
+                         "http://localhost:41109/"
+                    },
+
+                    ClientSecrets = new List<Secret>()
+                    {
+                        new Secret("secret".Sha256())
+                    }
+
+                 },
+                new Client
+                {
+                  ClientId = "postmantestclient",
+                  ClientName = "Postman http test client",
+                  Flow = Flows.AuthorizationCode,
+                  AllowAccessToAllScopes = true,
+			      RequireConsent = false,
+                  
+                  ClientSecrets = new List<Secret>
+                  {
+                      new Secret("PostmanSecret".Sha256())
+                  },
+                  
+                  RedirectUris = new List<string>()
+                  {
+                      "https://www.getpostman.com/oauth2/callback"
+                  }
                 }
 
             };

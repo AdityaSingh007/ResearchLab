@@ -13,9 +13,12 @@ using System.Linq.Dynamic;
 using System.Web.Http.Routing;
 using System.Web;
 using Newtonsoft.Json;
+using System.Web.Http.Cors;
 
 namespace RestFullServices.Controllers
 {
+    [EnableCors("*","*","GET,POST")]
+    [Authorize]
     public class ExpenseGroupsController : ApiController
     {
         IExpenseTrackerRepository _expenseTrackerRepository;

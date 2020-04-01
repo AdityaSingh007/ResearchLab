@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Net;
 using AzureADAuth.Services;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace AzureADAuth.Controllers
 {
@@ -31,7 +32,6 @@ namespace AzureADAuth.Controllers
         }
 
         [Route("")]
-        //[Authorize]
         public IActionResult Index()
         {
             return View();
@@ -234,6 +234,15 @@ namespace AzureADAuth.Controllers
             var deserializeResponse = JsonConvert.DeserializeObject(responeFromazureAPi).ToString();
 
             return View("AssignRole", deserializeResponse);
+        }
+
+        [Route("CookieAuthenticationDemo")]
+        [Authorize]
+        public IActionResult CookieAuthDemo()
+
+        {
+            var tokenIssuedByGoogle = _httpContextAccessor.HttpContext.GetTokenAsync(GoogleDefaults.AuthenticationScheme, OpenIdConnectParameterNames.AccessToken);
+            return View();
         }
     }
 }

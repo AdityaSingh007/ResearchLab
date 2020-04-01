@@ -36,28 +36,29 @@ namespace RestFullServices
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             /***<!--Configuration for API to use identity server authentication-->***/
-            //app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions()
-            //{
-            //    Authority = "http://localhost:58457"
-            //});
+            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions()
+            {
+                Authority = "http://localhost:58457",
+                RequiredScopes = new[] { "expensetrackerapi" },
+            });
 
             /***<!--Configuration for API to use Azure AD for authorization-->***/
-            var azureADBearerAuthOptions = new WindowsAzureActiveDirectoryBearerAuthenticationOptions
-            {
-                Tenant = AuthenticationConfig.tenant
-            };
+            //var azureADBearerAuthOptions = new WindowsAzureActiveDirectoryBearerAuthenticationOptions
+            //{
+            //    Tenant = AuthenticationConfig.tenant
+            //};
 
-            azureADBearerAuthOptions.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-            {
-                ValidAudience = AuthenticationConfig.clientId,
-                NameClaimType = JwtClaimTypes.Name,
-                RoleClaimType = JwtClaimTypes.Role
-            };
+            //azureADBearerAuthOptions.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+            //{
+            //    ValidAudience = AuthenticationConfig.clientId,
+            //    NameClaimType = JwtClaimTypes.Name,
+            //    RoleClaimType = JwtClaimTypes.Role
+            //};
 
-            app.UseWindowsAzureActiveDirectoryBearerAuthentication(azureADBearerAuthOptions);
+            //app.UseWindowsAzureActiveDirectoryBearerAuthentication(azureADBearerAuthOptions);
 
         }
     }

@@ -60,7 +60,7 @@ namespace ImageGallery.API
             //    IdentityServerAuthenticationDefaults.AuthenticationScheme)
             //    .AddIdentityServerAuthentication(options =>
             //    {
-            //        options.Authority = "https://login.microsoftonline.com/71f2e7b5-db7d-4db7-9b7d-dc4fbc5cb0aa";
+            //        options.Authority = "http://localhost:54248/";
             //        options.ApiName = "imagegalleryapi";
             //        ///To be set only in case if token type is set to reference.
             //        //options.ApiSecret = "apisecret";

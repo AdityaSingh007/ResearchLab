@@ -37,14 +37,14 @@ namespace Web
             //   appSecret: "");
 
             app.UseGoogleAuthentication();
-            using (var context = new ApplicationDbContext())
-            {
+            //using (var context = new ApplicationDbContext())
+            //{
 
-                context.Database.CreateIfNotExists();
+            //    context.Database.CreateIfNotExists();
 
-            }
+            //}
 
-            CreateAdminUser().Wait();
+            //CreateAdminUser().Wait();
         }
       
         private const string RoleName = "Administrator";

@@ -11,6 +11,7 @@ using Owin;
 using SocialNetwork.Data.Repositories;
 using System.Data.SqlClient;
 using IdentityServer3.Core.Services.Default;
+using System.Security.Cryptography.X509Certificates;
 
 [assembly: OwinStartup(typeof(OAuthServer.Startup))]
 
@@ -19,6 +20,38 @@ namespace OAuthServer
     public class Startup
     {
         public void Configuration(IAppBuilder app)
+        {
+            var configureIdsrvFromDB = ConfigurationManager.AppSettings["IDSRV:DB"].ToString();
+
+            if (string.Equals(configureIdsrvFromDB, "true", StringComparison.CurrentCultureIgnoreCase))
+                configureIdentityServerFromDatabase(app);
+            else
+                configureIdentityServerFromInMemory(app);
+        }
+
+        private void configureIdentityServerFromInMemory(IAppBuilder app)
+        {
+            var certificate = Convert.FromBase64String(ConfigurationManager.AppSettings["SigningCertificate"]);
+
+            var inmemoryManager = new InMemoryManager();
+
+            var factory = new IdentityServerServiceFactory();
+            factory.UseInMemoryClients(inmemoryManager.GetClients());
+            factory.UseInMemoryUsers(inmemoryManager.GetUsers());
+            factory.UseInMemoryScopes(inmemoryManager.GetScopes());
+
+            var identityServerOptions = new IdentityServerOptions()
+            {
+                SiteName = "Embedded IdentityServer",
+                SigningCertificate = new X509Certificate2(certificate, "password"),
+                RequireSsl=false,
+                Factory = factory
+            };
+
+            app.UseIdentityServer(identityServerOptions);
+        }
+
+        private void configureIdentityServerFromDatabase(IAppBuilder app)
         {
             var entityFrameworkOptions = new EntityFrameworkServiceOptions
             {
@@ -49,7 +82,7 @@ namespace OAuthServer
 
             var options = new IdentityServerOptions()
             {
-                SiteName="Facenotebook!!!",
+                SiteName = "Facenotebook!!!",
                 SigningCertificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(certificate, "password"),
                 RequireSsl = false,
                 Factory = factory
