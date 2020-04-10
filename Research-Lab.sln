@@ -64,13 +64,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Data", "Socia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.DbMigrations", "SocialNetwork.DbMigration\SocialNetwork.DbMigrations.csproj", "{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.MVC", "RouteDelivery.MVC\RouteDelivery.MVC.csproj", "{0F91676B-9C52-427E-B978-BB3E083E897B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.Data", "RouteDelivery.Data\RouteDelivery.Data.csproj", "{F45001A1-EB21-4412-94E7-B52C07FC11FD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.OptimizationEngine", "RouteDelivery.OptimizationEngine\RouteDelivery.OptimizationEngine.csproj", "{83F07226-4DDA-49F7-867C-B904B58EB52A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDelivery.Models", "RouteDelivery.Models\RouteDelivery.Models.csproj", "{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureCompute", "AzureCompute\AzureCompute.csproj", "{E17DAF03-0B53-4128-A6BE-194BC6DAC155}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -158,22 +152,10 @@ Global
 		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38503120-9060-4AB5-8F14-CBF7DD1DCBEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F91676B-9C52-427E-B978-BB3E083E897B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F45001A1-EB21-4412-94E7-B52C07FC11FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83F07226-4DDA-49F7-867C-B904B58EB52A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{161EFD2B-AB8B-4DAE-92F5-52225B2B9B5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E17DAF03-0B53-4128-A6BE-194BC6DAC155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E17DAF03-0B53-4128-A6BE-194BC6DAC155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E17DAF03-0B53-4128-A6BE-194BC6DAC155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E17DAF03-0B53-4128-A6BE-194BC6DAC155}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -354,14 +354,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RouteDelivery.Data\RouteDelivery.Data.csproj">
-      <Project>{f45001a1-eb21-4412-94e7-b52c07fc11fd}</Project>
-      <Name>RouteDelivery.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RouteDelivery.Models\RouteDelivery.Models.csproj">
-      <Project>{161efd2b-ab8b-4dae-92f5-52225b2b9b5d}</Project>
-      <Name>RouteDelivery.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RouteDelivery.OptimizationEngine\RouteDelivery.OptimizationEngine.csproj">
       <Project>{83f07226-4dda-49f7-867c-b904b58eb52a}</Project>
       <Name>RouteDelivery.OptimizationEngine</Name>

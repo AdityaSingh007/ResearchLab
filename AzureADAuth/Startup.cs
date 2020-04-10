@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AzureADAuth.Data;
+using AzureADAuth.Entities;
 using AzureADAuth.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -41,6 +43,9 @@ namespace AzureADAuth
 
             services.AddSingleton<ImageStore>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            var connectionString = Configuration["ConnectionStrings:salesDBConnectionString"];
+            services.AddDbContext<SalesContext>(o => o.UseSqlServer(connectionString));
 
             //Add below to enable use of session variable
             services.AddSession();

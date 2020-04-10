@@ -53,6 +53,14 @@ namespace ImageGallery.API
                         new IsUserAdminRequirement());
                 });
 
+                authorizationOptions.AddPolicy(
+                    "IsProfileValid",
+                    policyBuilder =>
+                {
+                    policyBuilder.AddRequirements(
+                        new ValidProfileRequirement());
+                });
+
             });
 
             ///***Configuration for authentication server as Identity Server***///
@@ -94,6 +102,7 @@ namespace ImageGallery.API
             //register custom policy Handler
             services.AddScoped<IAuthorizationHandler, MustOwnImageHandler>();
             services.AddScoped<IAuthorizationHandler, IsUserAdminHandler>();
+            services.AddSingleton<IAuthorizationHandler, ValidProfileAuthorizationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,8 +13,10 @@
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a asp-controller="Home" asp-action="DeviceCode">Device Code Flow</a></li>
                     <li role="presentation"><a href="/ServerToServerCommunication">TokenForServerToServerCommunication</a></li>
                     <li role="presentation"><a href="/Authorization/Index">Authorization code flow</a></li>
+                    <li role="presentation"><a asp-controller="Home" asp-action="PKCE">PKCE Flow</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li role="presentation"><a href="/userinformation">User Information</a></li>

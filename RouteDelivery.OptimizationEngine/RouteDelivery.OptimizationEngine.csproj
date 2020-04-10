@@ -44,16 +44,6 @@
     <Compile Include="OptimizationEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RouteDelivery.Data\RouteDelivery.Data.csproj">
-      <Project>{f45001a1-eb21-4412-94e7-b52c07fc11fd}</Project>
-      <Name>RouteDelivery.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RouteDelivery.Models\RouteDelivery.Models.csproj">
-      <Project>{161efd2b-ab8b-4dae-92f5-52225b2b9b5d}</Project>
-      <Name>RouteDelivery.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

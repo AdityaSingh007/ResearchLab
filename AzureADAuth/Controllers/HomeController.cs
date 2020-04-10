@@ -17,6 +17,8 @@ using System.Globalization;
 using System.Net;
 using AzureADAuth.Services;
 using Microsoft.AspNetCore.Authentication.Google;
+using System.Text;
+using AzureADAuth.Helpers;
 
 namespace AzureADAuth.Controllers
 {
@@ -24,6 +26,7 @@ namespace AzureADAuth.Controllers
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private HttpClient _httpClient = new HttpClient();
+
 
         public HomeController(IHttpContextAccessor httpContextAccessor)
         {
@@ -244,5 +247,74 @@ namespace AzureADAuth.Controllers
             var tokenIssuedByGoogle = _httpContextAccessor.HttpContext.GetTokenAsync(GoogleDefaults.AuthenticationScheme, OpenIdConnectParameterNames.AccessToken);
             return View();
         }
+
+        [HttpGet]
+        [Route("AuthorizationByPassingModelDemo")]
+        public async Task<IActionResult> AuthorizationByPassingModelDemo()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                /* Redirects the user to the authentication screen */
+                return new ChallengeResult();
+            }
+            var requestBody = new { UserName = "Aditya", Age = 23 };
+
+            var authResponse = _httpClient.PostAsync("api/Azure/AuthorizeUsingCustomModel",
+                new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
+
+            var response = await authResponse.Result
+                                              .Content
+                                              .ReadAsStringAsync();
+
+            return Ok(JsonConvert.DeserializeObject(response));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PKCE()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeviceCode()
+        {
+            try
+            {
+                var authResponse = await DeviceCodeFlowHelper.RequestAuthorizationAsync();
+                //var tokenResponse = await DeviceCodeFlowHelper.RequestTokenAsync(authResponse);
+                return View(new DeviceCodeAuthorizationResponse()
+                {
+                    UserCode = authResponse.UserCode,
+                    DeviceCode = authResponse.DeviceCode,
+                    VerificationUri = authResponse.VerificationUri,
+                    VerificationUriComplete = authResponse.VerificationUriComplete
+                });
+            }
+            catch (Exception ex)
+            {
+                return View(new DeviceCodeAuthorizationResponse()
+                {
+                    error = ex.InnerException != null ? ex.InnerException.Message : ex.Message
+                });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAccessTokenForDevice()
+        {
+            try
+            {
+                var tokenResponse = await DeviceCodeFlowHelper.RequestTokenAsync(DeviceCodeFlowHelper.DeviceAuthorizationResponse);
+                return Json(new { accessToken = tokenResponse.AccessToken,
+                    DeviceCode = DeviceCodeFlowHelper.DeviceAuthorizationResponse.DeviceCode,
+                    UserCode = DeviceCodeFlowHelper.DeviceAuthorizationResponse.UserCode });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.InnerException != null ? ex.InnerException.Message : ex.Message });
+            }
+        }
+
+
     }
 }

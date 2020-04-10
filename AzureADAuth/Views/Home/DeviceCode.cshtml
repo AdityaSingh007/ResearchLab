@@ -1,0 +1,47 @@
+﻿@model AzureADAuth.Models.DeviceCodeAuthorizationResponse
+
+@{
+    ViewData["Title"] = "DeviceCode";
+}
+<div>
+    <h4>DeviceCodeAuthorizationResponse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeviceCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeviceCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VerificationUri)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VerificationUri)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VerificationUriComplete)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VerificationUriComplete)
+        </dd>
+    </dl>
+</div>
+<div class="alert alert-info">
+    <h4 style="font-size:20px">Please navigate to @Model.VerificationUri and apply the code @Model.UserCode for authorization of the app </h4>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="get" asp-controller="Home" asp-action="GetAccessTokenForDevice">
+            <button type="submit" class="btn btn-success">Get Access Token</button>
+        </form>
+    </div>
+</div>
+<div>
+</div>
